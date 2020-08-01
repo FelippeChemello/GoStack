@@ -4,6 +4,11 @@
 |--- | --- | --- |
 https://wakatime.com/ | Provides Development Dashboard | Personal
 https://bit.ly/vscodeExtensionsFelippe | My VSCode Config | Personal
+https://bit.ly/jsonViewerChrome | Chrome Extension for JSON | Debug
+https://bit.ly/reactDevToolsChrome | Chrome Extensions for React | Debug
+https://whimsical.com/ | Flowchart and Wireframe Builder | Tools
+https://devdocs.io/ | Docs for All Frameworks and Programming Languages | Tools
+https://insomnia.rest/ | REST Client | Tools
 https://dribbble.com/ | Helps with creativity and design ideais | Front-End
 https://br.pinterest.com/ | App Inspirations | Front-end
 
