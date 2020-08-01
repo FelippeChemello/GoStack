@@ -58,3 +58,19 @@ Body
   - <span style='color:#00DBFF'>Query Params </span>
   - Request Header
   - Request Body (Apenas para POST e PUT)
+
+## HTTP Codes
+
+- 1xx: Informativo
+- 2xx: Sucesso
+  - 200: SUCCESS
+  - 201: CREATED
+- 3xx: Redirecionamento
+  - 301: MOVED PERMANENTLY
+  - 302: MOVED
+- 4xx: Erro no Cliente
+  - 400: BAD REQUEST
+  - 401: UNAUTHORIZED
+  - 404: NOT FOUND
+- 5xx: Erro no Servidor
+  - 500: INTERNAL SERVER ERROR
