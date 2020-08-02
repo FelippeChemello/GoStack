@@ -4,7 +4,7 @@ const port = process.env.PORT || 3333
 
 const app = express()
 
-app.get('/index', (request, response) => {
+app.get('/', (request, response) => {
     return response.json({
         message: 'Hello Felippe'
     })
