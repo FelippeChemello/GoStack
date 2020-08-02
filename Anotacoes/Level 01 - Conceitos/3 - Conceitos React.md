@@ -15,5 +15,32 @@
 
 - Organização do código
   - Componentização
-    - Dividir partes da tela em pequenos componentes
-        ![Componentização](./Assets/Componentizacao.png =100x20)
+    - Dividir partes da tela em pequenos componentes <br>
+        <img src="./Assets/Componentizacao.png" width=720>
+- Divisão de responsabilidade
+  - Back-end: Regra de negócio
+  - Front-end: Interface
+- Uma API, múltiplos clientes <br>
+<img src="./Assets/API-Cliente.png" width=360>
+- Programação declarativa
+
+## JSX
+
+- HTML dentro do JS (JavaScript + XML)
+- Com React podemos criar nossos próprios elementos
+    <img src="./Assets/jsx.png" width=360>
+
+## Imperativo VS Declarativo
+
+- Na programação imperativa passamos todas as instruções e casos possíveis ao computador comparando com estado anterior
+- Na programação declarativa apenas informamos que deve possuir um elemento com o numero atual, sendo o numero atual retornado do back-end, ou seja, o front-end preocupa-se em receber o valor atual e não no estado que possuia antes para montar ou não um componente
+<img src="./Assets/ImpVsdec.png" width=720>
+
+## Babel / Webpack
+
+- O browser não entende todos esses códigos novos
+- O **Babel** converte o código JS de uma forma que o qualquer browser entenda
+- O **Webpack**
+  - Cria um bundle com todos os códigos da aplicação
+  - Permite ao JS como importar CSS, imagens e etc.
+  - Live reload com Webpack Dev Server
