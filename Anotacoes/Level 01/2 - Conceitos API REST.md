@@ -36,13 +36,13 @@
   - <span style='color:#00DBFF'>Query Params </span>
 
 - <span style='color:lightblue'> POST </span> <span style='color:white; text-decoration:none'> http://api.com </span>/<span style='color:#ff007f'>company </span>/<span style='color:orange'>1</span>/<span style='color:#ff007f'>users</span> <br> 
-```
+```json
 Header
 {
     "locale": "pt_BR"
 }
 ```
-```
+```json
 Body
 {
     "user": {
