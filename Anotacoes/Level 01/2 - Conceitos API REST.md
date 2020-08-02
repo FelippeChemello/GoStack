@@ -83,3 +83,52 @@ Body
   - 404: NOT FOUND
 - 5xx: Erro no Servidor
   - 500: INTERNAL SERVER ERROR
+
+## Middleware
+
+- Interceptador de requisições
+  - Pode interromper totalmente
+  - Pode alterar dados
+- Middlewares no Express 
+  - Existem 3 formas de utilizar
+    1. Utilizando `app.use(middlewareFunction)`
+         - Com isso todas as requisições realizadas passarão por este middleware
+    2. Chamando após o recurso da rota
+          - `app.get('/projects', middlewareFunction1, middlewareFunction2, (request, response) => {})`
+          - Dessa forma todas as requisições enviadas para o recurso 'projects' passará primeiro pelo 'middlewareFunction1', após pelo 'middlewareFunction2' e por fim executará sua funcão, que por sua vez também pode ser considerada um middleware
+    3. Utilizando `app.use()` informando as rotas as quais devem ser aplicadas 
+          -  Com isso todas as rotas que possuirem tal formato, o express se encarregará de, automaticamente, passar por aquele middleware
+          -  `app.use('/projects/:id', validateId)`
+  - Para que atue como um middleware não bloqueante, ou seja, após sua execução chamar o próximo middleware, deve-se chamar ao final da função `return next()`, este sendo o terceiro parametro da função middleware.
+      ```js 
+      function middlewareFunction(request, response, next) {
+        console.log('Entrei no middleware')
+
+        return next()
+      }
+      ```
+  - Caso de uso curioso
+    - Podemos não fazer uso de `return` na função de middleware e com isso executariamos o próximo middleware no meio da execução do primeiro e após seria finalizada a execução do primeiro
+    ```js
+    function middlewareFunction1(request, response, next) {
+      console.log('Passo 1')
+
+      next()
+
+      console.log('Passo 3')
+    }
+
+    function middlewareFunction2(request, response, next) {
+      console.log('Passo 2')
+
+      return next()
+    }
+
+    app.get('/', middlewareFunction1, middlewareFunction2, (req, res) => {
+      res.send()
+    })
+
+    >>> Passo 1
+    >>> Passo 2
+    >>> Passo 3
+    ```
