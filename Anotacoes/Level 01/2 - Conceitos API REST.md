@@ -13,7 +13,7 @@
   - <span style="color:lightblue">POST</span> http://minhaapi.com/<span style="color:pink">users</span>
     - Chamada realizada para rota users com POST deve criar um novo usuário
   - <span style="color:lightblue">PUT</span> http://minhaapi.com/<span style="color:pink">users</span>/<span style="color:orange">1</span>
-    - Chamada realizada para rota users com PUT deve alterar o usuário 1
+    - Chamada realizada para rota users com PUT deve alterar o usuário 1 ou PATCH alterar o usuário 1 parcialmente
   - <span style="color:lightblue">DELETE</span> http://minhaapi.com/<span style="color:pink">users</span>/<span style="color:orange">1</span>
     - Chamada realizada para rota users com PUT deve deletar o usuário 1
   
