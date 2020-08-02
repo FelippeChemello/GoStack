@@ -39,8 +39,43 @@
 ## Babel / Webpack
 
 - O browser não entende todos esses códigos novos
-- O **Babel** converte o código JS de uma forma que o qualquer browser entenda
+- O **Babel** converte (transpila) o código JS de uma forma que o qualquer browser entenda
 - O **Webpack**
   - Cria um bundle com todos os códigos da aplicação
   - Permite ao JS como importar CSS, imagens e etc.
   - Live reload com Webpack Dev Server
+  
+## Loaders
+
+- Utilizado pelo webpack para carregar o código
+  - babel-loader
+    - Converter o JS em algo que o browser entenda
+  - css-loader
+    - Converter CSS em algo que o browser entenda
+  - image-loader
+  - ...
+
+# Criando um projeto
+
+```sh
+yarn init -y
+yarn add react react-dom
+yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli
+```
+
+## Babel Presets
+
+- @babel/preset-env 
+  - Entende o ambiente em que está sendo executado e converte o JS para rodas naquele ambiente
+- @babel/preset-react
+  - Converte as funcionalidade do React para que o browser consiga entender
+```js
+babel.config.js
+
+module.exports = {
+    presets: [
+        '@babel/preset-env',
+        '@babel/preset-react'
+    ],
+}
+```
