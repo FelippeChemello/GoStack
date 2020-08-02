@@ -4,7 +4,9 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node src/index.js",
+    "build": "yarn install && yarn start"
   },
   "dependencies": {
     "express": "^4.17.1"
