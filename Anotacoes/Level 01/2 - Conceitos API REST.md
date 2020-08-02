@@ -59,6 +59,15 @@ Body
   - Request Header
   - Request Body (Apenas para POST e PUT)
 
+### Parametros
+
+- Query Params
+  - Filtros e paginação
+- Route Params
+  - Identificar recursos para atualizar ou deletar
+- Request Body
+  - Conteúdo para criar ou editar um recurso
+
 ## HTTP Codes
 
 - 1xx: Informativo
