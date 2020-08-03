@@ -83,7 +83,7 @@ yarn add @babel/cli
 
 ## Babel CLI
 
-- Transpila de forma manual o códigso escrito em ES6 para permitir ser lido em qualquer browser
+- Transpila de forma manual o código escrito em ES6 para permitir ser lido em qualquer browser
   ```bash
   yarn babel src/index.js --out-file public/bundle.js
   ```
