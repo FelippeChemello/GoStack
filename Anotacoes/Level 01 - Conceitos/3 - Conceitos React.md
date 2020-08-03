@@ -148,3 +148,7 @@ yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live R
       }
   }
   ```
+
+## Boilerplates
+
+- Toda a configuração acima realizada é realizada automaticamente com boilerplates como `create-react-app`
