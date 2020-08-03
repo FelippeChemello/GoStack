@@ -19,7 +19,7 @@ jobs:
         uses: xmflsct/action-vercel-deployment@v0.5.3
         with:
           # Your token at Vercel. See https://vercel.com/account/tokens
-          vercelToken: PNh8wWMB5I4lY5XeXhh5ISw0
+          vercelToken: ${{ secrets.VERCEL_TOKEN }}
           # Your Organization ID at Vercel.
           vercelOrgId: ${{ secrets.FRONTEND_VERCEL_DEPLOY_ORGID }}
           # Your Project ID at Vercel.
@@ -27,9 +27,9 @@ jobs:
           # Your token at GitHub. See https://github.com/settings/tokens
           #githubToken: 
           # If you would like to build through GitHub Actions inatead of Vercel.
-          #buildOption: # optional
+          #buildOption: 
           # If building through GitHub Actions, a source directory may be supplied.
-          #buildSource: # optional, default is 
+          buildSource: "Conceitos/Frontend"
           # If building through GitHub Actiosn, an output directory may be supplied.
           #deploySource: # optional, default is 
           # If this deployment is targeted as production.
