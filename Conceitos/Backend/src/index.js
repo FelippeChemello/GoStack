@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const { uuid, isUuid } = require('uuidv4')
 
 const port = process.env.PORT || 3333
@@ -9,6 +10,11 @@ const app = express()
 //Com isso conseguimos informar que desejamos utilizar JSON no expres
 //Permitindo ler o Request Body
 app.use(express.json()) 
+
+//Com isso permitimos que qualquer cliente se conecte a este backend
+//Podemos passar como parametro do cors um objeto informando apenas qual origem
+//Pode fazer requisições, porém não aplicaremos isto neste momento
+app.use(cors())
 
 const projects = []
 

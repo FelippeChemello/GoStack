@@ -132,3 +132,8 @@ Body
     >>> Passo 2
     >>> Passo 3
     ```
+
+## CORS
+
+- Para trabalharmos com CORS precisamos instalar esta biblioteca
+  - `yarn add cors`

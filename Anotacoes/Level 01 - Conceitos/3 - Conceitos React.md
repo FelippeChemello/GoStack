@@ -66,6 +66,7 @@ yarn add babel-loader #Loader do babel para webpack
 yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live Reload (Necessita ser configurado com os arquivos de configuração)
 yarn add style-loader css-loader #Loader de CSS para webpack
 yarn add file-loader #Permite o carregamento de arquivos dentro da aplicação
+yarn add axios #Realiza as chamadas da API
 ```
 
 ## Babel Presets
@@ -314,3 +315,12 @@ yarn add file-loader #Permite o carregamento de arquivos dentro da aplicação
   - Para importar basta passar o nome que desejamos atribuir àquela imagem e após utilizar esta váriavel como 'src' da tag `<img />` 
     - `import backgroundImage from './assets/background.jpg'`
     - `<img src={backgroundImage}/>`
+
+## useEffect
+
+- Permite disparar uma função quando o componente é carregado e/ou quando alguma váriavel é alterada
+  - `useEffect(() => {}, [])`
+    - No primeiro parametro informamos a função a ser disparada
+    - No segundo parametro passamos um array, conhecido como array de dependencias, nele inserimos quais variaveis, que quando alteradas, devem disparar a função do primeiro parametro
+      - Quando informado um array vazio será disparado apenas quando o componente for carregado
+      - Normalmente passa-se no array as próprias variaveis de dentro da função, pois quando utilizamos uma váriavel queremos perceber que ela foi alterada e executar algo com ela
