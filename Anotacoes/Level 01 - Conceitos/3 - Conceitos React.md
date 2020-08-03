@@ -62,8 +62,10 @@ yarn init -y
 yarn add react react-dom #Instala a biblioteca React e ReactJS (Para Web)
 yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli #Instala os presets babel e o core do webpack
 yarn add @babel/cli #Permite a execução do babel via cli
-yarn add babel-loader #Loader do webpack para babel
+yarn add babel-loader #Loader do babel para webpack
 yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live Reload (Necessita ser configurado com os arquivos de configuração)
+yarn add style-loader css-loader #Loader de CSS para webpack
+yarn add file-loader #Permite o carregamento de arquivos dentro da aplicação
 ```
 
 ## Babel Presets
@@ -278,3 +280,37 @@ yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live R
     >>> ["Desenvolvimento Web", "Desenvolvimento Mobile", "Novo projeto"]
     ```
   - Por termos utilizado estado na variavel projects, sempre que ela for recriada o componente será recarregado e o novo valor será exibido
+
+## Estilos/CSS
+
+- Precisamos adicionar ao webpack os loaders de CSS
+  - css-loader
+    - Lê o arquivo CSS e interpreta as importações de arquivos externos (images, background-images etc.)
+  - style-loader
+    - Lê o CSS interpretado pelo css-loader e injeta dentro do HTML
+  ```js
+  {
+    test: /\.css$/,
+    exclude: /node_modules/,
+    use: [
+        { loader: 'style-loader' },
+        { loader: 'css-loader' }
+    ]
+  }
+  ```
+  - O import do arquivo pode ser realizado como se fosse um JS, pois o webpack irá, após, injetar no HTML
+    - `import './App.css'`
+- Para fazermos uso de imagens precisamos adicionar ao webpack o loader de arquivos
+  - file-loader
+    - Permite importar via JS imagens e fazer uso delas em tags `<img />`
+  ```js
+  {
+    test: /.*\.(gif|png|jpe?g)$/i,
+    use: {
+        loader: 'file-loader'
+    }
+  }  
+  ```
+  - Para importar basta passar o nome que desejamos atribuir àquela imagem e após utilizar esta váriavel como 'src' da tag `<img />` 
+    - `import backgroundImage from './assets/background.jpg'`
+    - `<img src={backgroundImage}/>`
