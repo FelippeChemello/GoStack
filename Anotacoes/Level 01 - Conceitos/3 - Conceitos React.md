@@ -203,3 +203,78 @@ yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live R
         </>
       )
       ```
+
+## Propriedades
+
+- Utilizado para passar informações/conteúdo de um componente pai para um componente filho 
+  - Ex: Passar um titulo para dentro do componente `<Header />`
+    - Para isso criamos um atributo com o nome desejado dentro deste componente e inserimos um valor para ele
+      - `<Header atributo="valor" />`
+    - No arquivo deste componente, a função receberá como primeiro parametro um objeto contendo todos os atributos/propriedades passadas na chamada do componente
+      - Para utiliza-lo dentro do return apenas precisamos colocar a variavel entre chaves para que seja reconhecida como variavel
+      ```js
+      export default function Header(props) {
+        return (
+            <header>
+                <h1> {props.atributo} </h1>
+            </header>
+        )
+
+      >>> valor
+      }
+      ```
+    - Podemos aplicar também desestruturação (destructuring) na função a fim de facilitar a manipulação dos valores
+      ```js
+        export default function Header({ atributo }) {
+          return (
+              <header>
+                  <h1> { atributo } </h1>
+              </header>
+          )
+
+        >>> valor
+        }
+      ```
+- Todo o componente possui por padrão a propriedade `children` que recebe o HTML/JSX/conteúdo que está dentro do componente
+    ```js
+    <Header title="Homepage">
+      <ul>
+          <li>Lista 1</li>
+          <li>Lista 2</li>
+      </ul>
+    </Header>
+
+    export default function Header({ title, children }) {
+      return (
+        <header>
+          <h1> {title} </h1>
+          {children}
+        </header>
+      )
+    }
+    ```
+    <img src="./Assets/Children.png" width=240>
+- OBS: No React todos os itens em uma lista necessitam de um atributo 'key' passando para ele um valor unico para que assim o React consiga identificar e manipular tais valores
+
+## Estado e Imutabilidade
+
+- Sem o conceitos de estado a cada edição que a página realizasse necessitáriamos recarrega-la por completo, dessa forma perdendo performance
+- Utilizando estados podemos facilmente apenas recarregar aquele componente, otimizando o carregamento e a experiência do usuário
+  - Para utiliza-lo devemos importar a função `useState` do React
+  - Ao chamar este método, ele retorna um array com 2 posições
+    1. Variável com o valor inicial
+    2. Função para atualizarmos o valor
+  - No React existe o conceito de imutabilidade, ou seja, não é possível alterar o valor e as propriedades de uma variavel, portanto sempre que desejamos alterar algum valor devemos recriar aquele objeto ou váriavel.
+    - A forma mais fácil para adicionar uma nova entrada em um array é utilizando 'spread operators'
+    ```js
+    const [projects, setProjects] = useState(['Desenvolvimento Web', 'Desenvolvimento Mobile'])
+      
+    function handleAddProject() {
+      setProjects([...projects, `Novo projeto`])
+
+      console.log(projects)
+    }
+
+    >>> ["Desenvolvimento Web", "Desenvolvimento Mobile", "Novo projeto"]
+    ```
+  - Por termos utilizado estado na variavel projects, sempre que ela for recriada o componente será recarregado e o novo valor será exibido
