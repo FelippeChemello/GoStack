@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  frontendVercelDeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vercel Deployment
+        uses: xmflsct/action-vercel-deployment@v0.5.3
+        with:
+          # Your token at Vercel. See https://vercel.com/account/tokens
+          vercelToken: ${{ secrets.VERCEL_TOKEN }}
+          # Your Organization ID at Vercel.
+          vercelOrgId: ${{ secrets.FRONTEND_VERCEL_DEPLOY_ORGID }}
+          # Your Project ID at Vercel.
+          vercelProjectId: ${{ secrets.FRONTEND_VERCEL_DEPLOY_PROJECTID }}
+          # Your token at GitHub. See https://github.com/settings/tokens
+          #githubToken: 
+          # If you would like to build through GitHub Actions inatead of Vercel.
+          #buildOption: # optional
+          # If building through GitHub Actions, a source directory may be supplied.
+          #buildSource: # optional, default is 
+          # If building through GitHub Actiosn, an output directory may be supplied.
+          #deploySource: # optional, default is 
+          # If this deployment is targeted as production.
+          #deployProduction: # optional
+          # You can assign a domain to this deployment. Please note that this domain must have been configured in the project.
+          #assignDomain: # optional
