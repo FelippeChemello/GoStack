@@ -12,27 +12,14 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  frontendVercelDeploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Vercel Deployment
-        uses: xmflsct/action-vercel-deployment@v0.5.3
+      - uses: actions/checkout@v2
+      - uses: amondnet/vercel-action@v19
         with:
-          # Your token at Vercel. See https://vercel.com/account/tokens
-          vercelToken: ${{ secrets.VERCEL_TOKEN }}
-          # Your Organization ID at Vercel.
-          vercelOrgId: ${{ secrets.FRONTEND_VERCEL_DEPLOY_ORGID }}
-          # Your Project ID at Vercel.
-          vercelProjectId: ${{ secrets.FRONTEND_VERCEL_DEPLOY_PROJECTID }}
-          # Your token at GitHub. See https://github.com/settings/tokens
-          #githubToken: 
-          # If you would like to build through GitHub Actions inatead of Vercel.
-          #buildOption: 
-          # If building through GitHub Actions, a source directory may be supplied.
-          buildSource: "Conceitos/Frontend"
-          # If building through GitHub Actiosn, an output directory may be supplied.
-          #deploySource: # optional, default is 
-          # If this deployment is targeted as production.
-          #deployProduction: # optional
-          # You can assign a domain to this deployment. Please note that this domain must have been configured in the project.
-          #assignDomain: # optional
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          github-token: ${{ secrets.TOKEN_VERCEL_GITHUB }} #Optional
+          vercel-org-id: ${{ secrets.FRONTEND_VERCEL_DEPLOY_ORGID}}  #Required
+          vercel-project-id: ${{ secrets.FRONTEND_VERCEL_DEPLOY_PROJECTID}} #Required 
+          working-directory: ./Conceitos/Frontend
