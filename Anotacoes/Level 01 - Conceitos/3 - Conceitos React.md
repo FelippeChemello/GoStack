@@ -152,3 +152,14 @@ yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live R
 ## Boilerplates
 
 - Toda a configuração acima realizada é realizada automaticamente com boilerplates como `create-react-app`
+
+## Componentização
+
+- Podemos fazer uso do React sem componentização, utilizando o método `render()`, com isso estamos fazendo uso de JSX, ou seja, inserindo HTML dentro do JS
+  Inserimos o `Hello World` dentro da div#app
+  ```js
+  import React from 'react'
+  import { render } from 'react-dom'
+
+  render(<h1> Hello World </h1>, document.querySelector('#app'))
+  ```
