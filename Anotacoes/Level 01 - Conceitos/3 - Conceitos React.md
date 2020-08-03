@@ -57,10 +57,11 @@
 
 # Criando um projeto
 
-```sh
+```bash
 yarn init -y
 yarn add react react-dom
 yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli
+yarn add @babel/cli
 ```
 
 ## Babel Presets
@@ -69,13 +70,13 @@ yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli
   - Entende o ambiente em que está sendo executado e converte o JS para rodas naquele ambiente
 - @babel/preset-react
   - Converte as funcionalidade do React para que o browser consiga entender
-```js
-babel.config.js
+  ```js
+  babel.config.js
 
-module.exports = {
-    presets: [
-        '@babel/preset-env',
-        '@babel/preset-react'
-    ],
-}
-```
+  module.exports = {
+      presets: [
+          '@babel/preset-env',
+          '@babel/preset-react'
+      ],
+  }
+  ```
