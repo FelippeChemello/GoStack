@@ -63,7 +63,7 @@ yarn add react react-dom #Instala a biblioteca React e ReactJS (Para Web)
 yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli #Instala os presets babel e o core do webpack
 yarn add @babel/cli #Permite a execução do babel via cli
 yarn add babel-loader #Loader do webpack para babel
-yarn add webpack-dev-server #
+yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live Reload (Necessita ser configurado com os arquivos de configuração)
 ```
 
 ## Babel Presets
@@ -121,7 +121,7 @@ yarn add webpack-dev-server #
       }
   }
   ```
-- Para executar o Webpack na mão basta rodar `yarn webpack --mode development`
+- Para executar o Webpack na mão, ou seja compilar os arquivos de entrada e criar seus respectivos outputs, basta rodar `yarn webpack --mode development`
 - Para o desenvolvimento podemos fazer uso do módulo `webpack-dev-server` que nos fornece um live reload server que monitora e cria o bundle a medida que as alterações são realizadas no arquivo de entrada
   - Deve-se adicionar a chave `devServer` informando o como `contentBase` o diretório publico da aplicação
   - Para executar o servidor basta rodar `yarn webpack-dev-server --mode development`
