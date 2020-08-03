@@ -19,7 +19,7 @@ jobs:
         uses: xmflsct/action-vercel-deployment@v0.5.3
         with:
           # Your token at Vercel. See https://vercel.com/account/tokens
-          vercelToken: ${{ secrets.VERCEL_TOKEN }}
+          vercelToken: PNh8wWMB5I4lY5XeXhh5ISw0
           # Your Organization ID at Vercel.
           vercelOrgId: ${{ secrets.FRONTEND_VERCEL_DEPLOY_ORGID }}
           # Your Project ID at Vercel.
