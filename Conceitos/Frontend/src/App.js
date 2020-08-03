@@ -10,15 +10,22 @@ function App() {
     const [projects, setProjects] = useState([])
     
     useEffect(() => {
+        //Podemos utilizar tanto then como async await, neste caso não pois o useEffect não suporta
         api.get('/projects').then(response => {
             setProjects(response.data)
         })
     }, [])
 
-    function handleAddProject() {
-        setProjects([...projects, `Novo projeto ${Date.now()}`])
+    //Vamos utilizar async await, apenas outra forma de fazer (sem o then)
+    async function handleAddProject() {
+        const response = await api.post('/projects', {
+            title: "Novo Projeto " + Math.round(Math.random()*100),
+            owner: "Felippe Chemello"
+        })
 
-        console.log(projects)
+        const project = response.data
+
+        setProjects([...projects, project])
     }
 
     return (

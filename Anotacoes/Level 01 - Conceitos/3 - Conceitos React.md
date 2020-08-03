@@ -61,6 +61,7 @@
 yarn init -y
 yarn add react react-dom #Instala a biblioteca React e ReactJS (Para Web)
 yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli #Instala os presets babel e o core do webpack
+yarn add @babel/plugin-transform-runtime -D #Permite o uso de async await
 yarn add @babel/cli #Permite a execução do babel via cli
 yarn add babel-loader #Loader do babel para webpack
 yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live Reload (Necessita ser configurado com os arquivos de configuração)
@@ -69,12 +70,14 @@ yarn add file-loader #Permite o carregamento de arquivos dentro da aplicação
 yarn add axios #Realiza as chamadas da API
 ```
 
-## Babel Presets
+## Babel Presets e Plugins
 
 - @babel/preset-env 
   - Entende o ambiente em que está sendo executado e converte o JS para rodas naquele ambiente
 - @babel/preset-react
   - Converte as funcionalidade do React para que o browser consiga entender
+- @babel/plugin-transform-runtime
+  - Permite o uso de Async Await
   ```js
   babel.config.js
 
@@ -83,6 +86,9 @@ yarn add axios #Realiza as chamadas da API
           '@babel/preset-env',
           '@babel/preset-react'
       ],
+      plugins: [
+        '@babel/plugin-transform-runtime'
+      ]
   }
   ```
 
