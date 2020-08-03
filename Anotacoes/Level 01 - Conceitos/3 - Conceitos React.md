@@ -59,9 +59,11 @@
 
 ```bash
 yarn init -y
-yarn add react react-dom
-yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli
-yarn add @babel/cli
+yarn add react react-dom #Instala a biblioteca React e ReactJS (Para Web)
+yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli #Instala os presets babel e o core do webpack
+yarn add @babel/cli #Permite a execução do babel via cli
+yarn add babel-loader #Loader do webpack para babel
+yarn add webpack-dev-server #
 ```
 
 ## Babel Presets
@@ -86,4 +88,63 @@ yarn add @babel/cli
 - Transpila de forma manual o código escrito em ES6 para permitir ser lido em qualquer browser
   ```bash
   yarn babel src/index.js --out-file public/bundle.js
+  ```
+
+## Webpack
+
+- No arquivo de configuração do webpack (`webpack.config.js`) devemos informar o(s) arquivo(s) de entrada, de saída e as regras de carregamento
+  - Utilizar sempre o módulo 'path' do Node para informar caminhos 
+  - Nas regras devemos informar, através de expressões regulares, quais arquivos devem ser lidos por aquela regra.
+    - Chave 'test'
+  - Podemos informar quais arquivos não desejamos que sejam lidos
+    - Chave 'exclude'
+  - Por fim indicamos qual loader deve ser utilizado para carregar aqueles arquivos
+    - Chave 'use'
+    - Lembrando que os loaders devem ser instalados através do NPM ou YARN
+  ```js
+  const path = require('path')
+
+  module.exports = {
+      entry: path.resolve(__dirname, 'src', 'index.js'),
+      output: {
+          path: path.resolve(__dirname, 'public'),
+          filename: 'bundle.js'
+      },
+      module: {
+          rules: [{
+              test: /\.js$/,
+              exclude: /node_modules/,
+              use: {
+                  loader: 'babel-loader'
+              }
+          }]
+      }
+  }
+  ```
+- Para executar o Webpack na mão basta rodar `yarn webpack --mode development`
+- Para o desenvolvimento podemos fazer uso do módulo `webpack-dev-server` que nos fornece um live reload server que monitora e cria o bundle a medida que as alterações são realizadas no arquivo de entrada
+  - Deve-se adicionar a chave `devServer` informando o como `contentBase` o diretório publico da aplicação
+  - Para executar o servidor basta rodar `yarn webpack-dev-server --mode development`
+  ```js
+  const path = require('path')
+
+  module.exports = {
+      entry: path.resolve(__dirname, 'src', 'index.js'),
+      output: {
+          path: path.resolve(__dirname, 'public'),
+          filename: 'bundle.js'
+      },
+      devServer: {
+          contentBase: path.resolve(__dirname, 'public')
+      },
+      module: {
+          rules: [{
+              test: /\.js$/,
+              exclude: /node_modules/,
+              use: {
+                  loader: 'babel-loader'
+              }
+          }]
+      }
+  }
   ```
