@@ -174,3 +174,32 @@ yarn add webpack-dev-server #Fornece um servidor para desenvolvimento com Live R
     - Atenção que o código HTML não está como String e sim como HTML (XML) direto
   - Por fim exportar a função
     - `export default App`
+  - Caso seja um componente simples, podemos exportar diretamente a função
+    - `export default function App() { return <h1> Olá mundo! </h1> }`
+  - Caso o JSX sejá maior que uma linha necessitamos retornar entre parenteses 
+- Os elementos JSX precisam retornar apenas um elemento, ou seja, caso seja necessário retornar mais de um elemento, precisamos colocá-los dentro de uma div e retornar apenas está div com seu conteúdo dentro
+  - Errado:
+      ```js
+      return (
+        <Header />
+        <Header />
+      )
+      ```
+  - Certo: 
+      ```js
+      return (
+        <div>
+            <Header />
+            <Header />
+        </div>
+      )
+      ```
+  - Tal prática pode acabar causando problemas durante a estilização, portanto existe o conceito de 'fragment' que permite a inserção de uma tag HTML vazia que encapsula o conteúdo interno, porém ao renderizar não insere nenhuma tag nova
+    - ```js
+      return (
+        <>
+            <Header />
+            <Header />
+        </>
+      )
+      ```
