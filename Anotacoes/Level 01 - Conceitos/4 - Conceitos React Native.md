@@ -155,3 +155,52 @@
     adb devices
     ```
   - Deve exibir o Device conectado
+
+## Criando o Projeto
+
+- Devemos iniciar o projeto executando o comando `npx react-native init <nome-do-projeto>`
+  - Será criada uma pasta com a estrutura do projeto
+- Dentro da pasta do Projeto
+  - Há uma pasta chamada '__tests\__'
+    - Nela deverá existir os testes do React Native
+  - Uma pasta 'android'
+    - Dentro deverá ser inserido o código nativo e configurações do android que serão utilizados pelo React Native para gerar a interface da aplicação
+    - Será pouco utilizado, normalmente apenas permissões e configurações de deploy para loja de Apps
+  - Uma pasta 'ios'
+    - Dentro deverá ser inserido o código nativo e configurações do IOS que serão utilizados pelo React Native para gerar a interface da aplicação
+    - Será pouco utilizado, normalmente apenas permissões e configurações de deploy para loja de Apps
+  - node_modules
+    - Pasta de módulos do node
+  - Arquivos de configuração do próprio React Native
+    - `.buckconfig`
+    - `.flowconfig`
+  - Configuração do git
+    - `.gitattributes`
+    - `.gitignore`
+  - Arquivos de configuração da Guia de Estilos
+    - `.eslintrc.js`
+    - `.prettierrc.js`
+  - Configuração de Live Reload da Aplicação
+    - `.watchmanconfig`
+  - Configuração do Babel, como visto no ReactJS, importando os presets
+    - `babel.config.js`
+  - `index.js`
+    - Como se fosse o  `index.js` do ReactJS que faz o render dentro de da div#App do `public/index.html`
+    - O `index.js` do React Native registra o componente dentro do aplicativo, dessa forma 'injetando' o nosso código 'App' dentro da aplicação
+  - `App.js` 
+    - Código da aplicação
+  - Configuração do Metro Bundler (Mesma coisa do webpack do ReactJS)
+    - `metro.config.js`
+  - Gerenciador de pacotes
+    - `package.json`
+
+## Abrindo o projeto no emulador
+
+- `npx react-native start`
+- `npx react-native run-android`
+
+### Com WSL
+
+- `npx react-native start --host 127.0.0.1` 
+- Verificar o nome do device com `adb devices`
+- `npx react-native run-android --variant=debug --deviceId <nome-do-device|emulator-5554>`
