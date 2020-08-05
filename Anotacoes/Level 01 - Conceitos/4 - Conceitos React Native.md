@@ -50,3 +50,108 @@
 - https://react-native.rocketseat.dev/ios/macos
 ### Para Android
 - https://react-native.rocketseat.dev/android/linux/
+- Instalando Java
+  - ```bash
+    sudo add-apt-repository ppa:openjdk-r/ppa
+    sudo apt-get update
+    sudo apt-get install openjdk-8-jdk
+    
+    #Testing - Need to be Java 8
+    java -version
+    #>>> openjdk version "1.8.0_252"
+    ```
+- Instalando Libs gráficas para conseguir emular o projeto
+  - ```bash
+    sudo apt-get install gcc-multilib lib32z1 lib32stdc++6
+    ```
+- Preparando para instalar AndroidStudio
+  - Criar um caminho para instalação do AndroidStudio
+    - ```bash
+      mkdir -p ~/Android/sdk
+      ```
+  - Buscar o caminho do JDK 8, normalmente está dentro de `/usr/lib/jvm/java-8-openjdk-amd64`
+    - ```bash
+      ls /usr/lib/jvm/java-8-openjdk-amd64/
+      ```
+  - Adicionar no arquivo `~/.bashrc`
+    - ```bash
+      export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+      export ANDROID_HOME=~/Android/Sdk
+      export PATH=$PATH:$ANDROID_HOME/emulator
+      export PATH=$PATH:$ANDROID_HOME/tools
+      export PATH=$PATH:$ANDROID_HOME/tools/bin
+      export PATH=$PATH:$ANDROID_HOME/platform-tools
+      ```
+- Instalando AndroidStudio
+  - Fazer download do Android Studio 
+    - https://developer.android.com/studio/
+  - Mover o arquivo compactado para `~/`
+  - Extrair os arquivos
+    - ```bash
+      tar -xvzf android-studio-ide-193.6626763-linux.tar.gz
+      ```
+  - Adicionar ao `~/.bashrc`
+    - ```bash
+      export PATH=$PATH:~/android-studio/bin
+      ```
+    - Com isso conseguimos abrir o android studio executando apenas `studio.sh`
+  - Executar `studio.sh`
+  - Selecionar 'Do not import settings'
+  - Aguardar carregar e na tela de Welcome clicar em 'Next'
+  - Ao solicitar a localização do JDK escolher 'JAVA_HOME'
+- Instalando a SDK 28 do Android (Pie)
+  - Na Janela inicial do Android Studio clicar em 'Configure'
+  - Clicar em 'SDK Manager'
+  - Selecionar a SDK 28
+  - Apply
+  - Concordar e next
+  - Aguardar Download
+- Caso tenha suporte ao KVM (Informado durante a instalação do Android Studio)
+  - ```bash
+    sudo apt install qemu-kvm
+    sudo adduser $USER kvm
+    source ~/.bashrc
+
+    #testando
+    grep kvm /etc/group
+    #Saida esperada
+    #>>> kvm:x:NUMERO_QUALQUER:SEU_USUARIO
+    ```
+- Configurando Emulador
+  - Na página inicial do AndroidStudio
+  - Clicar em 'Configure'
+  - Clicar em 'AVD Manager'
+  - 'Create Virtual Device'
+  - Selecionar um Device que possua Play Store
+  - Configuar device
+
+### Com WSL 
+
+- No Windows
+  - Instalar Android Studio
+  - Configurar SDK
+  - Configurar AVD
+  - Configurar PATH até plataform-tools
+    - Encontrar o caminho
+      - `C:\Users\felip\AppData\Local\Android\Sdk\platform-tools"`
+    - Adicionar ao PATH (Através do CMD)
+      - ```
+        setx PATH "%PATH%;C:\Users\felip\AppData\Local\Android\Sdk\platform-tools"
+        ```
+  - Executar
+    - ```
+      adb kill-server
+      adb -a nodaemon server start
+      ```
+- No Linux
+  - Deve estar habilitado o uso de aplicativos [GUI via WSL](https://github.com/FelippeChemello/GoStack/blob/master/Anotacoes/Use%20GUI%20in%20WSL.md)
+  - Instalar o AndroidStudio (Como no tutorial Anterior)
+  - Configurar SDK
+- No Windows
+  - Iniciar um Device via AVD
+- No Linux
+  - Ao Executar 
+    ```
+    adb devices
+    ```
+  - Deve exibir o Device conectado
