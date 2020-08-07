@@ -213,3 +213,8 @@
   - No HTML seria dividido em 'p', 'span', 'strong', 'h1', 'h2' e etc, porém no React Native é apenas `Text` e após aplica-se o estilo
 - Nenhum componente possui estilação própria
 - Todos os componentes são `display: flex`
+- Não existe o conceito de herença como no HTML, ou seja, ao aplicar no Pai uma cor para o texto branca, tal cor não será aplicada ao texto. Para funcionar corretamente deve-se aplicar o estilo de cor diretamente ao elemento `<text> </text>`
+- Componente `<StatusBar />` controla o estilo da status bar do dispositivo
+  - Utiliza-se o atributo `barStyle` com o valor `light-content` ou `dark-content` para identificar se os icones exibidos deverão ser no estilo claro ou escuro
+  - No android também pode-se utilizar o atributo `backgroundColor` que trocará por completo a cor da status bar.
+  - Outro atributo disponivel apenas no android é `translucent` que permite que o conteúdo da aplicação vá para baixo da status bar

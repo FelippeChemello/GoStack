@@ -1,5 +1,5 @@
 {
-  "name": "Mobile",
+  "name": "mobile",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start-wsl": "react-native start --host 127.0.0.1",
+    "android-wsl": "npx react-native run-android --variant=debug --deviceId emulator-5554"
   },
   "dependencies": {
     "react": "16.13.1",
