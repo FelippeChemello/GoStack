@@ -133,7 +133,7 @@
   - Configurar AVD
   - Configurar PATH até plataform-tools
     - Encontrar o caminho
-      - `C:\Users\felip\AppData\Local\Android\Sdk\platform-tools"`
+      - `C:\Users\felip\AppData\Local\Android\Sdk\platform-tools`
     - Adicionar ao PATH (Através do CMD)
       - ```
         setx PATH "%PATH%;C:\Users\felip\AppData\Local\Android\Sdk\platform-tools"
@@ -204,3 +204,12 @@
 - `npx react-native start --host 127.0.0.1` 
 - Verificar o nome do device com `adb devices`
 - `npx react-native run-android --variant=debug --deviceId <nome-do-device|emulator-5554>`
+
+## Componentes
+
+- O componente `<View />` equivale a uma div do HTML
+  - Componentes no React Native não possuem valores semanticos (significado), ou seja, diferente do HTML que fornece 'div', 'footer', 'header', 'main', 'aside' e 'section', tendo todos a mesma função de div. No React Native não existe essa distinção, sendo todos utilizados como `<View />`
+- O componente `<Text> </Text>` serve para inserção de um elemento de texto
+  - No HTML seria dividido em 'p', 'span', 'strong', 'h1', 'h2' e etc, porém no React Native é apenas `Text` e após aplica-se o estilo
+- Nenhum componente possui estilação própria
+- Todos os componentes são `display: flex`
