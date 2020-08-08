@@ -219,6 +219,23 @@
   - No android também pode-se utilizar o atributo `backgroundColor` que trocará por completo a cor da status bar.
   - Outro atributo disponivel apenas no android é `translucent` que permite que o conteúdo da aplicação vá para baixo da status bar
   - O componente `View` não disponibiliza um Scroll, assim sendo, caso o conteúdo ultrapassar o limite da tela, será perdido, para isso devemos utilizar o componente `ScrollView` que automaticamente insere um Scroll para ser possivel visualizar todo o conteúdo 
+  - Para listas pode-se utilizar o componente `FlatList` (mais performatico) que ao informar os parametros `data` passando um array de itens, `keyExtrator` o qual deverá ser uma função que receberá cada item do array e deverá retornar um ID Unico e por fim o parametro `renderItem` que também será uma função que receberá diversos parametros, como o 'item' que será cada item do array, com isso devemos retornar o que deve compor cada item da lista, incluindo os componentes desejados, como o `<Text></Text>`
+    - ```js
+        <FlatList 
+          style={styles.container}
+          data={projects}
+          keyExtractor={project => project.id}
+          renderItem={({ item }) => {
+              return (
+                  <Text style={styles.title}>
+                      {item.title}
+                  </Text>
+              );
+          }}
+        />
+      ```
+    - É mais performatico que uma `ScrollView`, pois a `FlatList` só renderiza os itens que estão em tela, ao contrário da `ScrollView` que renderiza o conteúdo por completo
+- O componente `SafeAreaView` garante que o conteúdo que esteja dentro dele seja exibido apenas na area visivel da aplicação, dessa forma evitando que seja escondido por notch e afins
 
 ## Construindo Aplicação
 
