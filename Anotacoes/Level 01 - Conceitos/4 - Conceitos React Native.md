@@ -218,3 +218,24 @@
   - Utiliza-se o atributo `barStyle` com o valor `light-content` ou `dark-content` para identificar se os icones exibidos deverão ser no estilo claro ou escuro
   - No android também pode-se utilizar o atributo `backgroundColor` que trocará por completo a cor da status bar.
   - Outro atributo disponivel apenas no android é `translucent` que permite que o conteúdo da aplicação vá para baixo da status bar
+  - O componente `View` não disponibiliza um Scroll, assim sendo, caso o conteúdo ultrapassar o limite da tela, será perdido, para isso devemos utilizar o componente `ScrollView` que automaticamente insere um Scroll para ser possivel visualizar todo o conteúdo 
+
+## Construindo Aplicação
+
+- Instalaremos o 'Axios' para, como na Web, realizar as chamas para API
+  - ```
+      yarn add axios
+    ```
+- Configurando a URL (baseURL) para requisições 
+  - No iOS com Emulador a baseURL deverá ser localhost
+  - No iOS com Dispositivo físico deverá utilizar o IP da máquina (privado)
+    - 192.168.0.x
+  - Android com Emulador
+    - Podemos utilizar localhost, porém necessita-se criar um proxy para conexão para isso basta executar no bash o seguinte comando que fará o encaminhamento da porta para dentro do emulador
+      - ```bash
+          #adb reverse tcp:<porta> tcp:<porta>
+          abd reverse tcp:<porta> tcp:<porta>
+        ```
+    - Podemos utilizar o IP 10.0.2.2 que já conecta também com o emulador do android studio
+    - Dispositivo físico deverá fazer uso do IP da máquina, como no iOS
+  

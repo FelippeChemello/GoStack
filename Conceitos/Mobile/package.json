@@ -12,6 +12,7 @@
     "android-wsl": "npx react-native run-android --variant=debug --deviceId emulator-5554"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "react": "16.13.1",
     "react-native": "0.63.2"
   },
