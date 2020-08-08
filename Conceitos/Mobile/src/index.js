@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, SafeAreaView, FlatList, Text, StyleSheet, StatusBar } from 'react-native'
+import { 
+    View, 
+    ScrollView, 
+    SafeAreaView, 
+    FlatList, 
+    Text,
+    TouchableOpacity, 
+    StyleSheet, 
+    StatusBar, 
+    Button
+} from 'react-native'
 
 import api from './services/api'
 
@@ -13,6 +23,18 @@ export default function App() {
         })
     }, [])
 
+    async function handleAddProject() {
+        console.log('Pressed')
+        const response = await api.post("/projects", {
+            title: "Novo Projeto " + Math.round(Math.random() * 100),
+            owner: "Felippe Chemello",
+        });
+
+        const project = response.data;
+
+        setProjects([...projects, project]);
+    }
+
     return (
         <>
             <StatusBar barStyle="dark-content" backgroundColor="#7519c1" />
@@ -24,17 +46,14 @@ export default function App() {
                         return <Text style={styles.title}>{item.title}</Text>;
                     }}
                 />
-            </SafeAreaView>
 
-            {/* <ScrollView style={styles.container}>
-                {projects.map((project) => {
-                    return (
-                        <Text style={styles.title} key={project.id}>
-                            {project.title}
-                        </Text>
-                    );
-                })}
-            </ScrollView> */}
+                <TouchableOpacity 
+                    activeOpacity={0.6}
+                    style={styles.button} 
+                    onPress={handleAddProject}>
+                    <Text style={styles.buttonText}>Adicionar Projeto</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
         </>
     );
 }
@@ -48,5 +67,18 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 21,
         fontWeight: 'bold'
+    },
+    button: {
+        alignSelf: 'stretch',
+        backgroundColor: 'white',
+        margin: 20,
+        height: 50,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonText: {
+        fontWeight: 'bold',
+        fontSize: 16
     }
 })

@@ -236,6 +236,8 @@
       ```
     - É mais performatico que uma `ScrollView`, pois a `FlatList` só renderiza os itens que estão em tela, ao contrário da `ScrollView` que renderiza o conteúdo por completo
 - O componente `SafeAreaView` garante que o conteúdo que esteja dentro dele seja exibido apenas na area visivel da aplicação, dessa forma evitando que seja escondido por notch e afins
+- O Componente `TouchableOpacity` fornece um botão que ao ser clicado diminui sua opacidade, a maioria dos botões iniciam-se com 'Touchable', porém também existe o componente `Button`
+  - Opacidade controlada pelo atributo `activeOpacity={x}` sendo x um valor de 0.0 (completamente opaco) até 1.0 (Sem alteração) 
 
 ## Construindo Aplicação
 
