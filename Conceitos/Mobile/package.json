@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint .",
     "start-wsl": "react-native start --host 127.0.0.1",
-    "android-wsl": "npx react-native run-android --variant=debug --deviceId emulator-5554"
+    "android-wsl": "react-native run-android --variant=debug --deviceId emulator-5554"
   },
   "dependencies": {
     "axios": "^0.19.2",
