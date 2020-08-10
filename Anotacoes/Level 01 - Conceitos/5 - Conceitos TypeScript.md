@@ -100,3 +100,13 @@ Isto indica que não foi encontrado o arquivo de declaração de tipos do modulo
     ```
     - Caso não tivessemos importado no `routes.js` as interfaces e declarado na função `helloWorld` a qual tipo as variaveis recebidas pertencem o IntelliSense não seria capaz de fornecer a sugestão do `response.json` pois não saberia o que ela significa
   - Sempre que for necessário inserir tipagem o próprio editor irá informar, indicando com um sublinhado, pois ele não conseguiu determinar o tipo e automaticamente atribuiu a ele o tipo `any`, ou seja, qualquer entrada para aquela variavel será aceita
+
+## Tipando nossas variaveis
+
+- Podemos definir que uma variavel é do tipo `string` e pode possuir `valor vazio` simplesmente definindo como uma `string vazia`. Ex: `const name = '';`
+- Outra forma de definir os tipos das variaveis é inserindo "`:`" após sua declaração e informando a qual tipo ela pertence, com isso ela não será inicializada com valor algum. Ex: `const name: string;`
+  - Tipos disponiveis: 
+    - `string`
+    - `number`
+    - `object`
+- Se tentarmos informar um numero no lugar de uma string o editor informará que o tipo está incorreto
