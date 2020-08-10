@@ -103,10 +103,31 @@ Isto indica que não foi encontrado o arquivo de declaração de tipos do modulo
 
 ## Tipando nossas variaveis
 
-- Podemos definir que uma variavel é do tipo `string` e pode possuir `valor vazio` simplesmente definindo como uma `string vazia`. Ex: `const name = '';`
+- Podemos definir que uma variavel é do tipo `string` e é opcional, podemos simplesmente definir como uma `string vazia`. Ex: `const name = '';`
 - Outra forma de definir os tipos das variaveis é inserindo "`:`" após sua declaração e informando a qual tipo ela pertence, com isso ela não será inicializada com valor algum. Ex: `const name: string;`
   - Tipos disponiveis: 
     - `string`
     - `number`
     - `object`
+    - `Array`
 - Se tentarmos informar um numero no lugar de uma string o editor informará que o tipo está incorreto
+- Outra forma de declarar que um valor é opcional é inserir "`?`" antes de "`:`". Ex: `const name?: string;`
+- Outra forma de indicar o tipo de objetos, para utilizar por exemplo em uma desestruturação é utilizar `interface`, definindo que toda o objeto possui aquele tipo.
+    ```typescript
+    interface CreateUserData {
+        name?: string,
+        email?: string, 
+        password?: string
+    }
+
+    export default function createUser({ name = '', email, password } : CreateUserData) {
+        const user = {
+            name,
+            email,
+            password
+        }
+
+        return user;
+    }
+    ```
+    - Este código automaticamente valida os dados de entrada e fornece ao IntelliSense informações para facilitar o desenvolvimento tanto para chamada desta função para utilização de seu retorno
