@@ -70,3 +70,33 @@ Isto indica que não foi encontrado o arquivo de declaração de tipos do modulo
     ```
   - Serão mantidos a estrutura de pastas que possuía originalmente
     <img src="Assets/tree-ts.png" style="display:block"> </img>
+
+## Quando adicionar tipagem? 
+
+- Arquivos `<nome>.d.ts` são arquivos de definições de tipos (definition of types)
+    - Ao passarmos o mouse sobre uma variavel é exibido seu tipo
+        <img src="Assets/tipo.png" style="display:block"> </img>
+    - Como a variavel `response` pertence ao `express` basta pressionarmos `ctrl` e clicar sobre o nome do pacot no `import` que seremos direcionados ao arquivo `index.d.ts` do pacote. Nele encontraremos a definição desta variavel 
+        <img src="Assets/declaracao-tipo.png" style="display:block" />
+    - Com isso tanto nós podemos saber que o tipo da variavel `response` é `Response` como o editor consegue mapear seus atributos e funções
+- Devemos importar quando o `import` de um pacote estiver em um arquivo X e um "resultado" deste `import` estiver sendo importado e utilizado por um arquivo arquivo Y. Neste arquivo Y, para que o IntelliSense funcione devemos declarar o tipo desta variavel.
+    ```JavaScript
+        // index.js
+        import express from 'express'
+        import { helloWorld } from './routes'
+
+        const app = express()
+
+        app.get('/', helloWorld)
+
+        app.listen(3333)
+
+        //routes.js
+        import { Request, Response } from 'express'
+
+        export function helloWorld(request: Request, response: Response) {
+            return response.json({ message: 'hello world' });
+        }    
+    ```
+    - Caso não tivessemos importado no `routes.js` as interfaces e declarado na função `helloWorld` a qual tipo as variaveis recebidas pertencem o IntelliSense não seria capaz de fornecer a sugestão do `response.json` pois não saberia o que ela significa
+  - Sempre que for necessário inserir tipagem o próprio editor irá informar, indicando com um sublinhado, pois ele não conseguiu determinar o tipo e automaticamente atribuiu a ele o tipo `any`, ou seja, qualquer entrada para aquela variavel será aceita
