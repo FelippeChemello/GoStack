@@ -131,3 +131,31 @@ Isto indica que não foi encontrado o arquivo de declaração de tipos do modulo
     }
     ```
     - Este código automaticamente valida os dados de entrada e fornece ao IntelliSense informações para facilitar o desenvolvimento tanto para chamada desta função para utilização de seu retorno
+- Para definir os tipos de `Array` basta inserir o tipo entre `< >`, caso seja do tipo misto basta separa-los com "`|`". Caso possua apenas um tipo pode-se declarar apenas adicionando o tipo seguido de `[]`
+    ```typescript
+    interface TechObject {
+        title: string,
+        experience: number
+    }
+    
+
+    interface CreateUserData {
+        name?: string,
+        email: string, 
+        password: string,
+        techs: Array<string | TechObject>,
+        contact: number[]
+    }
+
+    { 
+        email: 'felippechemello@gmail.com', 
+        password: '123456',
+        techs: [
+            'NodeJS', 
+            'ReactJS', 
+            {title: 'JavaScript', experience: 100},
+            {title: 'React', experience: 50}
+        ],
+        contact: [99999999, 988888888]
+    }
+    ```
