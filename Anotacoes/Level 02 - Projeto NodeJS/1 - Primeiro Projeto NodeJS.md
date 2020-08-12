@@ -36,10 +36,39 @@
 ```json
 "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
+    "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
   }
 ```
 - Comando **`build`** irá transpilar e gerar os arquivos JS a partir do TS, tendo output a pasta `dist` 
 - Comando **`dev:server`** irá subir um servidor de desenvolvimento com live reload 
   - `--transpileOnly` fará com que, ao recarregar não faça validação de código/sintaxe, dessa forma deixando o processo mais rápido
   - `--ignore-watch node_modules` irá ignorar a pasta `node-modules`
+  - `--inspect` permite que o VSCode conecte-se ao servidor para debug
+
+## Configurando Debug VSCode
+
+- Ir na aba de Debug
+  - `crate a launch.json file`
+- No arquivo gerado inserir a seguinte configuração 
+    ```json 
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "type": "node",
+                "request": "attach",
+                "protocol": "inspector",
+                "restart": true,
+                "name": "Debug",
+                "skipFiles": [
+                    "<node_internals>/**"
+                ],
+                "outFiles": [
+                    "${workspaceFolder}/**/*.js"
+                ]
+            }
+        ]
+    }
+    ```
+    - Com a configuração `"request": attach` conseguimos iniciar um debug já com a aplicação rodando, sem a necessidade de lançar ela novamente
+    - Com o `"protocol": "inspector" permite a conexão do VSCode com o servidor
