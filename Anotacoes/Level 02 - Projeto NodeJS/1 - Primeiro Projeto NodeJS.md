@@ -4,7 +4,10 @@
 
 ### Produção
 
-- Express
+- express
+- uuidv4
+- date-fns
+  - Manipulação de datas
 
 ### Desenvolvimento
 
@@ -120,6 +123,10 @@
         trailingComma: 'all',
         arrowParens: 'avoid',
     }
+    ```
+-   ```bash
+    yarn add uuidv4
+    yarn add date-fns
     ```
 
 ## Scripts configurados no `package.json`
