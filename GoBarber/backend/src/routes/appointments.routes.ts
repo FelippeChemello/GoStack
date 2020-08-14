@@ -1,4 +1,4 @@
-import { Router, response } from 'express';
+import { Router } from 'express';
 import { startOfHour, parseISO } from 'date-fns';
 // parseISO converte String para Objeto JS do tipo Date
 // startOfHour define a Hora do Objeto Date como inicio (minuto 0, segundo 0 etc.)
