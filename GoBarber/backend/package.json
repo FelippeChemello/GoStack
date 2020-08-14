@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "vercel-build": "yarn tsc",
+    "vercel-build": "yarn tsc && yarn start",
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
