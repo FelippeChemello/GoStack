@@ -11,5 +11,10 @@
             "src": "/(.*)",
             "dest": "/dist/server.js"
         }
-    ]
+    ],
+    "functions": {
+        "compileTypescript.js" : {
+            "runtime": "@vercel/node"
+        }
+    }
 }
