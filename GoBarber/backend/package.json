@@ -1,12 +1,12 @@
 {
   "name": "primeiro-projeto-node",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/server.js",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "vercel-build": "yarn tsc && yarn start",
+    "vercel-build": "yarn tsc",
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
