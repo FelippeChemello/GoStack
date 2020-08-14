@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "name": "gobarber-backend",
+    "builds": [
+        {
+            "src": "dist/*.js",
+            "use": "@now/node"
+        }
+    ],
+    "routes": [{
+            "src": "/(.*)",
+            "dest": "/dist/server.js"
+        }
+    ]
+}
