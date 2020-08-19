@@ -235,3 +235,7 @@
 
 ### Explicação mais detalhada
 - <img src="../Notion/Repository, Services e Patterns.png" with="100%">
+
+## Desafio
+- https://github.com/rocketseat-education/bootcamp-gostack-desafios/tree/master/desafio-fundamentos-nodejs#rocket-sobre-o-desafio
+- https://www.youtube.com/watch?v=FYsFvjM6AJM&feature=youtu.be
