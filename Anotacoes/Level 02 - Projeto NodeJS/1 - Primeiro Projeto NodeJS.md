@@ -194,3 +194,41 @@
         }
       ```
         - Com isso indicamos que o constructor receberá um objeto com as variaveis de Appointment, ou seja, id, provider e date porém sem o id
+- Separation of Concerns
+  - Separação de Objetivos
+  - Arquivos de Rotas
+    - Deve receber a requisição
+    - Chamar um arquivo para resolver esta requisição
+    - Devolver uma resposta
+  - Arquivos de Respositórios
+    - Deve servir como meio/caminho entre a aplicação e a persistencia de dados, abstraindo aonde será salvo os dados
+    - Neste arquivo será criado os métodos para criar, deletar, buscar os dados salvos
+    - Ele é o detentor das operações sobre os dados
+  - Arquivos de Modelos
+    - Deve servir de modelo/forma/formato dos dados que a apliação irá possuir
+    - Qual a estrutura de um objeto
+  - Arquivos de Serviços
+    - Cada arquivo de Serviço deve ser responsável por UM ÚNICO serviço
+    - Ele abstrai a lógica de uma operação
+    - Cada caminho da aplicação, normalmente, converte-se em um serviço
+    - Todo o Serviço deverá ter um unico método e este deve ser publico
+      - Normalmente chamado de `execute` ou `run`, pois trata-se de executar aquele método
+    - Responsável pelas regras de negócio
+      - Não é responsável por transformações de dados
+      - Transformações de dados trata-se de adaptações necessárias para o funcionamento da aplicação
+      - Regras de negócio são requisitos e funcionalidades da aplicação
+    - O Serviço
+      - Deve receber os dados já transformados, ou seja, prontos para o uso
+      - Deve tratar os erros e excessões
+      - Não possui acesso a requisição e a resposta da rota, apenas o que recebeu por parametro
+      - Deve receber como construtor as suas dependencias, ou seja, o acesso aos repositórios com os quais precisará interagir **(Inversão de dependencia)**
+- SOLID
+  - **S**ingle Resposability Principle (Separation of Concerns)
+  - **O**
+  - **L**
+  - **I**
+  - **D**ependency Inversion Principle
+- DRY (Não repetir regras de negócio)
+  - **D**on't
+  - **R**epeat
+  - **Y**ourself

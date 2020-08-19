@@ -4,6 +4,7 @@ import { startOfHour, parseISO } from 'date-fns';
 // startOfHour define a Hora do Objeto Date como inicio (minuto 0, segundo 0 etc.)
 
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
+import CreateAppointmentService from '../services/CrateAppointmentService';
 
 const appointmentsRouter = Router();
 const appointmentsRepository = new AppointmentsRepository();
@@ -15,28 +16,26 @@ appointmentsRouter.get('/', (request, response) => {
 });
 
 appointmentsRouter.post('/', (request, response) => {
-    // provider = Nome do prestador de serviços
-    // date = Data e Hora do agendamento
-    const { provider, date } = request.body;
+    try {
+        // provider = Nome do prestador de serviços
+        // date = Data e Hora do agendamento
+        const { provider, date } = request.body;
 
-    const parsedDate = startOfHour(parseISO(date));
+        const parsedDate = parseISO(date);
 
-    const findAppointmentInSameDate = appointmentsRepository.findByDate(
-        parsedDate,
-    );
+        const createAppointment = new CreateAppointmentService(
+            appointmentsRepository,
+        );
 
-    if (findAppointmentInSameDate) {
-        return response
-            .status(400)
-            .json({ message: 'This appointment is already booked' });
+        const appointment = createAppointment.execute({
+            date: parsedDate,
+            provider,
+        });
+
+        return response.json(appointment);
+    } catch (error) {
+        return response.status(400).json({ error: error.message });
     }
-
-    const appointment = appointmentsRepository.create({
-        provider,
-        date: parsedDate,
-    });
-
-    return response.json(appointment);
 });
 
 export default appointmentsRouter;

@@ -35,7 +35,3 @@ class AppointmentsRepository {
 }
 
 export default AppointmentsRepository;
-
-// Repositório serve como um caminho entre a aplicação e a persistencia
-// Nele serão criados os métodos para criar, deletar, buscar etc. os dados
-// DETENTOR DAS OPERAÇÕES SOBRE OS DADOS DA APLICAÇÃO
