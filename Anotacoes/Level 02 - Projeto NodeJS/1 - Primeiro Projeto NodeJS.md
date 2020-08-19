@@ -232,3 +232,6 @@
   - **D**on't
   - **R**epeat
   - **Y**ourself
+
+### Explicação mais detalhada
+- <img src="../Notion/Repository, Services e Patterns.png" with="100%">
