@@ -170,3 +170,27 @@
     ```
     - Com a configuração `"request": attach` conseguimos iniciar um debug já com a aplicação rodando, sem a necessidade de lançar ela novamente
     - Com o `"protocol": "inspector" permite a conexão do VSCode com o servidor
+
+## Conceitos
+
+- DTO (Data Transfer Object)
+  - Utilizado para transferir dados de um arquivo para outro
+- Omit<>
+    - os '<>' são utilizados como parametros de função e passamos como primeiro 'parametro' o Tipo ao qual desejamos omitir uma variavel e no segundo 'parametro' o nome da variavel que desejamos omitir
+    - Mais utilizado para tipagem de um objeto
+    - ```js
+        class Appointment {
+            id: string;
+
+            provider: string;
+
+            date: Date;
+
+            constructor({ provider, date }: Omit<Appointment, 'id'>) {
+                this.id = uuid();
+                this.provider = provider;
+                this.date = date;
+            }
+        }
+      ```
+        - Com isso indicamos que o constructor receberá um objeto com as variaveis de Appointment, ou seja, id, provider e date porém sem o id
