@@ -56,6 +56,7 @@
 
 - ```bash
     yarn add typeorm pg
+    yarn add reflect-metadata
   ```
 - Criar arquivo de configuração do TypeORM
     ```json
@@ -66,6 +67,9 @@
         "username": "postgres",
         "password": "docker",
         "database": "gostack_gobarber",
+        "entities": [
+            "./src/models/*.ts"
+        ],
         "migrations": [
             "./src/database/migrations/*.ts"
         ],
@@ -123,14 +127,55 @@
 - Necessitamento habilitar no arquivo `tsconfig.json` as seguintes configurações
     ```json
     {
-        "experimentalDecorators": true, 
+        "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "strictPropertyInitialization": false,
     }
     ```
     - Com isso podemos utilizar `Decorators`, ou seja, `@Entity` e etc. antes de métodos, classes e atributos
+- Antes de começar devemos importar o pacote `reflect-metadata` no primeiro arquivo de execução do servidor
+    - ```js
+      import 'reflect-metadata';
+      ```
 - Iremos começar indicando que um `modelo` faz parte de uma `tabela` do banco de dados
     - Para isso utilizaremos `@Entity('<NomeDaTabela>')` logo acima do nome da class do modelos desejado, com isso estaremos relacionando aquele modelo com a tabela
+- Precisamos também especificar no `ormconfig.json` através da configuração `"entities"` um vetor com os caminhos para as entidades
 - Além disso devemos informar quais atributos do TypeScript se correlacionam com quais tabelas (Podem existir atributos do TS que não possuem correlação no banco de dados)
     - Para isso utilizaremos `@Column('<TipoDaColuna>')` ou `@PrimaryGeneratedColumn('<TipoDeGeração|uuid|increment>')`
         - O Tipo da coluna quando não informado é automaticamente atribudo como `varchar`
+- Por fim, o `Model` não necessita mais de um constructor, portanto, caso possua, pode ser removido
+    ```typescript
+    @Entity('appointments')
+    class Appointment {
+        @PrimaryGeneratedColumn('uuid')
+        id: string;
+
+        @Column()
+        provider: string;
+
+        @Column('timestamp with time zone')
+        date: Date;
+    }
+    ```
+- Com o Model configurado, precisamos adaptar o Repositório, como o TypeORM já possui um repositório padrão, podemos remover, caso exista, o construtor que inicializava o vetor de `appointments`, o próprio vetor de `appointments`, o método de obtenção de todos os registros e o método de criação de novos registros
+    - Para atribuirmos tais funcionalidades de volta a classe, basta dizermos que a classe passa a extender a classe `Repository<Model>` implementada pelo TypeORM
+        - Deve-se trocar a palavra `Model` pelo Modelo ao qual a Entidade se refere
+- Após precisamos identificar, semelhante a maneira feita no Model, que aquele repositório é um repositório de entidade
+    - Para isso devemos inserir acima da declaração da classe `@EntityRepository(<ModelAoQualSeRefere>)`
+    ```typescript
+    @EntityRepository(Appointment)
+    class AppointmentsRepository extends Repository<Appointment> {
+        public async findByDate(date: Date): Promise<Appointment | null> {
+            const findAppointment = await this.findOne({
+                where: {
+                    date,
+                },
+            });
+
+            return findAppointment || null;
+        }
+    }
+    ```
+- Toda a busca no banco de dados é assincrona, portanto devemos utilizar `async await` para obtermos os dados, com isso é necessário alterar o tipo de resultado para ser uma `Promise` e o tipo de retorno da `Promise` ser o esperado
+- Para buscar um dado utilizamos a o método fornecido pelo `Repository` do TypeORM chamado `findOne()`, o qual recebe por parametro um objeto com o `where` da busca
+- Para criar um novo registro devemos utilizar o método `create()` também do `Repository` do TypeORM, porém este método apenas retorna a instancia criada dentro da aplicação, sem salva-la no Banco de Dados, portanto trata-se de um método sincrono, para salvar este registro no banco de dados devemos utilizar o método `save()` passando por parametro justamente o registro que o `create()` retornou
