@@ -4,7 +4,7 @@
   "main": "dist/server.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && yarn typeorm migration:run",
+    "build": "tsc",
     "start": "ts-node src/server.ts",
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js"
