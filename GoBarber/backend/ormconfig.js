@@ -1,10 +1,10 @@
 module.exports = {
     "type": "postgres",
-    "host": "localhost",
+    "host": process.env.DATABASE_URL || "localhost",
     "port": 5432,
-    "username": "postgres",
-    "password": "docker",
-    "database": "gostack_gobarber",
+    "username": process.env.DATABASE_USER || "postgres",
+    "password": process.env.DATABASE_PASSWORD || "docker",
+    "database": process.env.DATABASE_NAME || "gostack_gobarber",
     "entities": [
         "./src/models/*.ts"
     ],
