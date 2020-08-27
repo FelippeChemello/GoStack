@@ -106,7 +106,7 @@
     ```
 - No método `up()` da migration devemos informar o que deve ser realizado no Banco
 - No método `down()` da migration devemos informar o que deve ser realizado no Banco caso ocorra um erro ao executar aquela migration (Fallback)
-    - Deve desfazer o que foi feito no `up()`
+    - Deve desfazer o que foi feito no `up()` de forma contrária, o que foi feito por ultimo no `up()` deve ser feito primeiro no `down()`
 - Para executar as migrations basta executar
     ```bash
     yarn typeorm migration:run
