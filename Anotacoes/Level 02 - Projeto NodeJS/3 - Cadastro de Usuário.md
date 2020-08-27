@@ -55,3 +55,14 @@
     }
   ```
 
+## Aplicação para criar usuários
+
+- Não há a necessidade de criar um repositório, visto que não teremos nenhum método de consulta ao banco diferente dos já fornecidos pelo TypeORM
+
+### Criptografia da Senha
+
+- Utilizaremos a dependencia `bcryptjs`
+    ```bash
+    yarn add bcryptjs
+    yarn add -D @types/bcryptjs
+    ```
