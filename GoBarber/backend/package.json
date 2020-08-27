@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/server.ts",
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
@@ -16,6 +16,7 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.3.2",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^9.0.0",
     "typeorm": "^0.2.25",
     "uuidv4": "^6.2.2"
   },
