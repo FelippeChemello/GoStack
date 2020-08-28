@@ -239,3 +239,38 @@
 ## Desafio
 - https://github.com/rocketseat-education/bootcamp-gostack-desafios/tree/master/desafio-fundamentos-nodejs#rocket-sobre-o-desafio
 - https://www.youtube.com/watch?v=FYsFvjM6AJM&feature=youtu.be
+
+## Reconhecer uma variavel com outro tipo (Parsear a variavel para um tipo desejado)
+
+- Quando recebemos um tipo desconhecido, porém desejamos utilizar e sabemos o que aquele tipo é, podemos utiliza-lo informando o tipo desejado através do uso da palavra `<variavel> as <InterfaceDaVariavelDesejada>`
+    ```typescript
+    interface TokenPayload {
+        iar: number;
+        exp: number;
+        sub: string;
+    }
+
+    const decoded = verify(token, authConfig.jwt.secret);
+
+    const { sub } = decoded as TokenPayload;
+    ```
+
+## Sobrescrever tipos de variaveis de bibliotecas
+
+- No exemplo iremos sobrescrever/adicionar a 'chave' `user` user dentro do tipo `Request` do módulo do express
+- Para isso precisamos criar uma pasta chamada `@types` dentro de `src`
+- Na pasta `@types` devemos criar um arquivo com o nome da extensão, neste caso, `express.d.ts` (.d.ts pois trata-se de um arquivo de definição de tipos)
+- No arquivo de declaração devemos declarar o namespace com o mesmo nome do módulo que estamos alterando
+- Dentro desta declaração exportar a interface com o nome do tipo que desejamos alterar
+  - IMPORTANTE: Esta interface **NÃO** irá sobrescrever a já existente, apenas realizar um `append` (anexo) a existente.
+- Dentro da interface informamos o tipo que estamos adicionando
+    ```typescript
+    declare namespace Express {
+        export interface Request {
+            user: {
+                id: string;
+            };
+        }
+    }
+
+    ```

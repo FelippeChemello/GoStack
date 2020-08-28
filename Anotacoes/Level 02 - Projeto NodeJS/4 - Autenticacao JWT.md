@@ -21,3 +21,14 @@
         expiresIn: '1d',
     });
     ```
+
+## Autenticando a rota
+
+- Utilizaremos o método `verify()` do módulo `jsonwebtoken` para validar e decodar o token
+  - Ele retornará o token decodado
+  - No primeiro parametro devemos informar o `token` e no segundo a chave utilizada para cria-lo
+- Nos dados decodados estarão disponiveis o *payload* do token
+  - No caso da aplicação, até o momento mostrará:
+    - `iat` = momento que foi criado o token
+    - `exp` = momento em que o token deixará de ser válido
+    - `sub` = subject (id do usuário) do token
