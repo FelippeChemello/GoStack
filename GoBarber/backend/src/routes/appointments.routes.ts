@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { startOfHour, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 // parseISO converte String para Objeto JS do tipo Date
 // startOfHour define a Hora do Objeto Date como inicio (minuto 0, segundo 0 etc.)
 import { getCustomRepository } from 'typeorm';
@@ -20,24 +20,20 @@ appointmentsRouter.get('/', async (request, response) => {
 });
 
 appointmentsRouter.post('/', async (request, response) => {
-    try {
-        // provider = Nome do prestador de serviços
-        // date = Data e Hora do agendamento
-        const { provider, date } = request.body;
+    // provider = Nome do prestador de serviços
+    // date = Data e Hora do agendamento
+    const { provider, date } = request.body;
 
-        const parsedDate = parseISO(date);
+    const parsedDate = parseISO(date);
 
-        const createAppointment = new CreateAppointmentService();
+    const createAppointment = new CreateAppointmentService();
 
-        const appointment = await createAppointment.execute({
-            date: parsedDate,
-            provider,
-        });
+    const appointment = await createAppointment.execute({
+        date: parsedDate,
+        provider,
+    });
 
-        return response.json(appointment);
-    } catch (error) {
-        return response.status(error.statusCode).json({ error: error.message });
-    }
+    return response.json(appointment);
 });
 
 export default appointmentsRouter;
