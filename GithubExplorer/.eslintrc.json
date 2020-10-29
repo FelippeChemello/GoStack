@@ -35,7 +35,8 @@
             }
         ],
         "no-use-before-define": "off",
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "react/jsx-indent": ["error", 4]
     },
     "settings": {
         "import/resolver": {
