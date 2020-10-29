@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:3333
+
+# @name GetAllTransactionsWithBalance
+GET {{baseUrl}}/transactions/ HTTP/1.1
+
+###
+
+# @name DeleteOneTransaction
+DELETE  {{baseUrl}}/transactions/75684249-a110-4256-bf9a-268a550b7175 HTTP/1.1
+
+###
+
+# @name CreateTransaction
+POST {{baseUrl}}/transactions HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "uuid",
+  "title": "Salário",
+  "value": 3000,
+  "type": "income",
+  "category": "Alimentação"
+}
+
+###
+
+ # @name ImportCSVTransactions
+POST {{baseUrl}}/transactions/import HTTP/1.1
+Content-Type: multipart/form-data; boundary=---011000010111000001101001
+
+-----011000010111000001101001
+Content-Disposition: form-data; name="file"; filename="import_template.csv"
+Content-Type: text/csv
+
+< ./src/__tests__/import_template.csv
+-----011000010111000001101001--
