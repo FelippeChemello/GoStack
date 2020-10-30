@@ -1,51 +1,66 @@
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.svg';
+import api from '../../services/api';
 
 import { Title, Form, Repositories } from './styles';
 
+interface Repository {
+    full_name: string;
+    description: string;
+    owner: {
+        login: string;
+        avatar_url: string;
+    };
+}
+
 const Dashboard: React.FunctionComponent = () => {
+    const [repositories, setRepositories] = useState<Repository[]>([]);
+    const [repositoryName, setRepositoryName] = useState('');
+
+    async function handleAddRepository(
+        event: FormEvent<HTMLFormElement>,
+    ): Promise<void> {
+        event.preventDefault();
+
+        const response = await api.get(`/repos/${repositoryName}`);
+
+        setRepositories([...repositories, response.data as Repository]);
+        setRepositoryName('');
+    }
+
     return (
         <>
             <img src={logoImg} alt="Github explorer" />
             <Title> Explore repositórios no Github </Title>
 
-            <Form action="">
-                <input placeholder="Digite o nome do repositório" />
+            <Form onSubmit={handleAddRepository}>
+                <input
+                    placeholder="Digite o nome do repositório"
+                    value={repositoryName}
+                    onChange={event => setRepositoryName(event.target.value)}
+                />
                 <button type="submit"> Pesquisar </button>
             </Form>
 
             <Repositories>
-                <a href="teste">
-                    <img src="https://picsum.photos/200" alt="Profile" />
-                    <div>
-                        <strong>Nome</strong>
-                        <p>Descrição</p>
-                    </div>
+                {repositories.map(repository => {
+                    return (
+                        <a key={repository.full_name} href="teste">
+                            <img
+                                src={repository.owner.avatar_url}
+                                alt={repository.owner.login}
+                            />
+                            <div>
+                                <strong>{repository.full_name}</strong>
+                                <p>{repository.description}</p>
+                            </div>
 
-                    <FiChevronRight size={20} color="#cbcd6" />
-                </a>
-
-                <a href="teste">
-                    <img src="https://picsum.photos/200" alt="Profile" />
-                    <div>
-                        <strong>Nome</strong>
-                        <p>Descrição</p>
-                    </div>
-
-                    <FiChevronRight size={20} color="#cbcd6" />
-                </a>
-
-                <a href="teste">
-                    <img src="https://picsum.photos/200" alt="Profile" />
-                    <div>
-                        <strong>Nome</strong>
-                        <p>Descrição</p>
-                    </div>
-
-                    <FiChevronRight size={20} color="#cbcd6" />
-                </a>
+                            <FiChevronRight size={20} color="#cbcd6" />
+                        </a>
+                    );
+                })}
             </Repositories>
         </>
     );
