@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.svg';
@@ -16,9 +16,27 @@ interface Repository {
 }
 
 const Dashboard: React.FunctionComponent = () => {
-    const [repositories, setRepositories] = useState<Repository[]>([]);
+    const [repositories, setRepositories] = useState<Repository[]>(() => {
+        const storagedRepositories = localStorage.getItem(
+            '@GithubExplorer:repositories',
+        );
+
+        // Valor inicial da variavel será o retornado pela função
+        if (storagedRepositories) {
+            return JSON.parse(storagedRepositories);
+        }
+
+        return [];
+    });
     const [repositoryName, setRepositoryName] = useState('');
     const [inputError, setInputError] = useState('');
+
+    useEffect(() => {
+        localStorage.setItem(
+            '@GithubExplorer:repositories',
+            JSON.stringify(repositories),
+        );
+    }, [repositories]);
 
     async function handleAddRepository(
         event: FormEvent<HTMLFormElement>,
@@ -31,7 +49,7 @@ const Dashboard: React.FunctionComponent = () => {
         }
 
         try {
-            const response = await api.get(`/repos/${repositoryName}`);
+            const response = await api.get(`repos/${repositoryName}`);
 
             setRepositories([...repositories, response.data as Repository]);
             setRepositoryName('');
