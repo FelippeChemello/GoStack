@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import logoImg from '../../assets/logo.svg';
+import api from '../../services/api';
 
 import { Header, RepositoryInfos, Issues } from './styles';
 
+interface RepositoryRouteParams {
+    name: string;
+}
+
 const Repository: React.FunctionComponent = () => {
+    const { params } = useRouteMatch<RepositoryRouteParams>();
+
     return (
         <>
             <Header>
@@ -20,7 +27,7 @@ const Repository: React.FunctionComponent = () => {
                 <header>
                     <img src="https://picsum.photos/200" alt="" />
                     <div>
-                        <strong>FelippeChemello/FelippeChemello</strong>
+                        <strong>{params.name}</strong>
                         <p>Descrição do Repo</p>
                     </div>
                 </header>
