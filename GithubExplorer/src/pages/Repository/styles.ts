@@ -122,3 +122,16 @@ export const Issues = styled.div`
         }
     }
 `;
+
+export const Loading = styled.div`
+    display: flex;
+    height: 1vh;
+    width: 100%;
+    height: 500px;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 150px;
+    }
+`;

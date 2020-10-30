@@ -37,7 +37,8 @@
         "no-use-before-define": "off",
         "prettier/prettier": "error",
         "react/jsx-indent": ["error", 4],
-        "react/jsx-indent-props": ["error", 4]
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-one-expression-per-line": "off"
     },
     "settings": {
         "import/resolver": {
