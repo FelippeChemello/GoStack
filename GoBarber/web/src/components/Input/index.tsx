@@ -54,6 +54,8 @@ const Input: React.FC<InputProps> = ({ icon: Icon, ...attributes }) => {
                 ref={inputRef}
                 {...attributes}
             />
+
+            {error}
         </Container>
     );
 };
