@@ -1,9 +1,18 @@
-import React, { createContext, useCallback, useContext } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
+import { v4 } from 'uuid';
+
 import ToastNotification from '../components/ToastNotification';
 
 interface ToastContextInterface {
-    addToast(): void;
-    removeToast(): void;
+    addToast(message: Omit<ToastMessage, 'id'>): void;
+    removeToast(id: string): void;
+}
+
+export interface ToastMessage {
+    id: string;
+    type?: 'success' | 'error' | 'info';
+    title: string;
+    description?: string;
 }
 
 const ToastContext = createContext<ToastContextInterface>(
@@ -11,19 +20,35 @@ const ToastContext = createContext<ToastContextInterface>(
 );
 
 const ToastProvider: React.FC = ({ children }) => {
-    const addToast = useCallback(() => {
-        console.log('AddToast');
-    }, []);
+    const [messages, setMessages] = useState<ToastMessage[]>([]);
 
-    const removeToast = useCallback(() => {
-        console.log('RemoveToast');
+    const addToast = useCallback(
+        ({ type, title, description }: Omit<ToastMessage, 'id'>) => {
+            const id = v4();
+
+            const toast = {
+                id,
+                type,
+                title,
+                description,
+            };
+
+            setMessages(oldMessages => [...oldMessages, toast]); // Um setter de estado passa por parametro o estado anterior, ou seja, com isso conseguimos pegar os dados anteriormente setados e adicionar o novo valor
+        },
+        [],
+    );
+
+    const removeToast = useCallback((id: string) => {
+        setMessages(currentMessages =>
+            currentMessages.filter(message => message.id !== id),
+        );
     }, []);
 
     return (
         <ToastContext.Provider value={{ addToast, removeToast }}>
             {children}
 
-            <ToastNotification />
+            <ToastNotification messages={messages} />
         </ToastContext.Provider>
     );
 };
