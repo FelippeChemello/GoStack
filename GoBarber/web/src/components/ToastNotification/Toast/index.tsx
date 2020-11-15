@@ -12,6 +12,7 @@ import { useToast, ToastMessage } from '../../../context/ToastContext';
 
 interface ToastProps {
     message: ToastMessage;
+    style: object;
 }
 
 const icons = {
@@ -20,7 +21,7 @@ const icons = {
     success: <FiCheckCircle size={24} />,
 };
 
-const Toast: React.FC<ToastProps> = ({ message }) => {
+const Toast: React.FC<ToastProps> = ({ message, style }) => {
     const { removeToast } = useToast();
 
     useEffect(() => {
@@ -37,6 +38,7 @@ const Toast: React.FC<ToastProps> = ({ message }) => {
         <Container
             hasDescription={Boolean(message.description)}
             type={message.type}
+            style={style} // React permite utilização de estilos inline, como seria no estilo de objetos (como no React-Native), podemos jogar o estilo recebido das animações diretamente para essa propriedade
         >
             {icons[message.type || 'info']}
 
