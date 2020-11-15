@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 
 import api from '../services/api';
 
@@ -19,7 +19,7 @@ interface AuthState {
 
 // É necessário iniciar um contexto com um valor default, porém não faz sentido ter um valor inicial neste caso,
 // para "burlar" a tipagem, devemos dizer que o objeto vazio é a interface desejada, dessa forma ele vai permitir passar o erro
-export const AuthContext = createContext<AuthContextInterface>(
+const AuthContext = createContext<AuthContextInterface>(
     {} as AuthContextInterface,
 );
 
@@ -53,3 +53,13 @@ export const AuthProvider: React.FC = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+
+export function useAuth(): AuthContextInterface {
+    const context = useContext(AuthContext); // Busca os dados do contexto ao qual está inserido
+
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+
+    return context;
+}
