@@ -1,4 +1,4 @@
-import React, { createContext, useCallback } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 
 import api from '../services/api';
 
@@ -8,8 +8,13 @@ interface SignInCredentialsInterface {
 }
 
 interface AuthContextInterface {
-    name: string;
+    user: object;
     signIn(credentials: SignInCredentialsInterface): Promise<void>;
+}
+
+interface AuthState {
+    token: string;
+    user: object;
 }
 
 // É necessário iniciar um contexto com um valor default, porém não faz sentido ter um valor inicial neste caso,
@@ -19,15 +24,31 @@ export const AuthContext = createContext<AuthContextInterface>(
 );
 
 export const AuthProvider: React.FC = ({ children }) => {
+    const [data, setData] = useState<AuthState>(() => {
+        const token = localStorage.getItem('@GoBarber:token');
+        const user = localStorage.getItem('@GoBarber:user');
+
+        if (token && user) {
+            return { token, user: JSON.parse(user) };
+        }
+
+        return {} as AuthState;
+    });
+
     const signIn = useCallback(async ({ email, password }) => {
         const response = await api.post('sessions', { email, password });
 
-        console.log(response.data);
+        const { token, user } = response.data;
+
+        localStorage.setItem('@GoBarber:token', token);
+        localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+        setData({ token, user });
     }, []);
 
     // Context.Provider -> Prove os dados no valor para todos os componentes filhos que estão dentro dele, com isso os componentes tem acesso a esse valor
     return (
-        <AuthContext.Provider value={{ name: 'Felippe', signIn }}>
+        <AuthContext.Provider value={{ user: data.user, signIn }}>
             {children}
         </AuthContext.Provider>
     );
