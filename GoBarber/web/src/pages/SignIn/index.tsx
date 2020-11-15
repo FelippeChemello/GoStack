@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useCallback, useContext, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
