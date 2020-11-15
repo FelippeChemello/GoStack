@@ -12,6 +12,7 @@ import Button from '../../components/Button';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 
 interface SignInFormData {
     email: string;
@@ -21,6 +22,7 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
     const { signIn, user } = useAuth();
+    const { addToast, removeToast } = useToast();
 
     console.log(user);
 
@@ -40,7 +42,7 @@ const SignIn: React.FC = () => {
                     abortEarly: false,
                 });
 
-                signIn({
+                await signIn({
                     email: data.email,
                     password: data.password,
                 });
@@ -50,9 +52,11 @@ const SignIn: React.FC = () => {
 
                     formRef.current?.setErrors(errors);
                 }
+
+                addToast();
             }
         },
-        [signIn],
+        [signIn, addToast],
     );
 
     return (
