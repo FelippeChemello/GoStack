@@ -1,5 +1,12 @@
 import React, { useCallback, useRef } from 'react';
-import { Image, View, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+    Image,
+    View,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    TextInput,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
@@ -18,11 +25,11 @@ import {
     CreateAccountButton,
     CreateAccountButtonText,
 } from './styles';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const SignIn: React.FC = () => {
     const navigation = useNavigation();
     const formRef = useRef<FormHandles>(null);
+    const passwordInputRef = useRef<TextInput>(null);
 
     const handleSignIn = useCallback((data: object) => {
         console.log(data);
@@ -52,11 +59,24 @@ const SignIn: React.FC = () => {
                                 name="email"
                                 icon="mail"
                                 placeholder="E-mail"
+                                autoCorrect={false}
+                                autoCapitalize="none"
+                                keyboardType="email-address"
+                                returnKeyType="next"
+                                onSubmitEditing={() =>
+                                    passwordInputRef.current?.focus()
+                                }
                             />
                             <Input
+                                ref={passwordInputRef}
                                 name="password"
                                 icon="lock"
                                 placeholder="Senha"
+                                secureTextEntry
+                                returnKeyType="send"
+                                onSubmitEditing={() =>
+                                    formRef.current?.submitForm()
+                                }
                             />
 
                             <Button
