@@ -15,6 +15,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
+import { useAuth } from '../../hooks/Auth';
 
 import logoImg from '../../assets/logo.png';
 
@@ -39,6 +40,7 @@ const SignIn: React.FC = () => {
     const navigation = useNavigation();
     const formRef = useRef<FormHandles>(null);
     const passwordInputRef = useRef<TextInput>(null);
+    const { signIn } = useAuth();
 
     const handleSignIn = useCallback(async (data: SignInFormData) => {
         formRef.current?.setErrors({});
