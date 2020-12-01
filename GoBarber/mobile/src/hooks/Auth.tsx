@@ -18,6 +18,7 @@ interface AuthContextInterface {
     user: object;
     signIn(credentials: SignInCredentialsInterface): Promise<void>;
     signOut(): void;
+    loading: boolean;
 }
 
 interface AuthState {
@@ -33,6 +34,7 @@ const AuthContext = createContext<AuthContextInterface>(
 
 export const Auth: React.FC = ({ children }) => {
     const [data, setData] = useState<AuthState>({} as AuthState);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function loadStoragedData(): Promise<void> {
@@ -44,6 +46,8 @@ export const Auth: React.FC = ({ children }) => {
             if (token[1] && user[1]) {
                 setData({ token: token[1], user: JSON.parse(user[1]) });
             }
+
+            setLoading(false);
         }
 
         loadStoragedData();
@@ -70,7 +74,9 @@ export const Auth: React.FC = ({ children }) => {
 
     // Context.Provider -> Prove os dados no valor para todos os componentes filhos que estão dentro dele, com isso os componentes tem acesso a esse valor
     return (
-        <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+        <AuthContext.Provider
+            value={{ user: data.user, signIn, signOut, loading }}
+        >
             {children}
         </AuthContext.Provider>
     );
