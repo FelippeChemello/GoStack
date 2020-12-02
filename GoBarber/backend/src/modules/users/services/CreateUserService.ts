@@ -1,4 +1,5 @@
 import { hash } from 'bcryptjs';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
@@ -12,8 +13,12 @@ interface InterfaceRequestDTO {
     password: string;
 }
 
+@injectable()
 export default class CreateUserService {
-    constructor(private usersRepository: InterfaceUsersRepository) {}
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository: InterfaceUsersRepository,
+    ) {}
 
     public async execute({
         name,
