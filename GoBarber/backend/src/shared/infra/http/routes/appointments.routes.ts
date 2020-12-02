@@ -4,8 +4,8 @@ import { parseISO } from 'date-fns';
 // startOfHour define a Hora do Objeto Date como inicio (minuto 0, segundo 0 etc.)
 import { getCustomRepository } from 'typeorm';
 
-import AppointmentsRepository from '../../modules/appointments/repositories/AppointmentsRepository';
-import CreateAppointmentService from '../../modules/appointments/services/CrateAppointmentService';
+import AppointmentsRepository from '../../../../modules/appointments/repositories/AppointmentsRepository';
+import CreateAppointmentService from '../../../../modules/appointments/services/CrateAppointmentService';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const appointmentsRouter = Router();

@@ -5,7 +5,7 @@ import { sign } from 'jsonwebtoken';
 import AppError from '../../../shared/errors/AppError'
 
 import authConfig from '../../../config/auth';
-import User from '../entities/User';
+import User from '../infra/typeorm/entities/User';
 
 interface RequestDTO {
     email: string;
