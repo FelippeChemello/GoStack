@@ -1,10 +1,9 @@
-import path from 'path';
-import fs from 'fs';
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
 import InterfaceUsersRepository from '@modules/users/repositories/InterfaceUsersRepository';
+import InterfaceStorageProvider from '@shared/container/providers/StorageProvider/models/InterfaceStorageProvider';
 
 import uploadCOnfig from '@config/upload';
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -19,6 +18,9 @@ class UpdateUserAvatarService {
     constructor(
         @inject('UsersRepository')
         private usersRepository: InterfaceUsersRepository,
+
+        @inject('StorageProvider')
+        private storageProvider: InterfaceStorageProvider,
     ) {}
 
     public async execute({
@@ -35,21 +37,12 @@ class UpdateUserAvatarService {
         }
 
         if (user.avatar) {
-            const userAvatarFilePath = path.join(
-                uploadCOnfig.directory,
-                user.avatar,
-            );
-
-            const userAvatarFileExists = await fs.promises.stat(
-                userAvatarFilePath,
-            );
-
-            if (userAvatarFileExists) {
-                await fs.promises.unlink(userAvatarFilePath);
-            }
+            await this.storageProvider.deleteFile(user.avatar);
         }
 
-        user.avatar = avatarFileName;
+        const filename = await this.storageProvider.saveFile(avatarFileName);
+
+        user.avatar = filename;
 
         await this.usersRepository.save(user);
 

@@ -2,6 +2,9 @@ node_modules
 dist
 .vercel
 yarn-error.log
+tmp/uploads/*
+!tmp/uploads/.gitkeep
 tmp/*
 !tmp/.gitkeep
+!tmp/**/
 coverage
