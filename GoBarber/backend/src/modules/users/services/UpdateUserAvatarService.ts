@@ -9,7 +9,7 @@ import uploadCOnfig from '@config/upload';
 import User from '@modules/users/infra/typeorm/entities/User';
 
 interface InterfaceRequestDTO {
-    user_id: string;
+    userId: string;
     avatarFileName: string;
 }
 
@@ -24,10 +24,10 @@ class UpdateUserAvatarService {
     ) {}
 
     public async execute({
-        user_id,
+        userId,
         avatarFileName,
     }: InterfaceRequestDTO): Promise<User> {
-        const user = await this.usersRepository.findById(user_id);
+        const user = await this.usersRepository.findById(userId);
 
         if (!user) {
             throw new AppError(
