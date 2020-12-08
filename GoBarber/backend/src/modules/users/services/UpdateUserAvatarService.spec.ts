@@ -31,7 +31,7 @@ describe('UpdateUserAvatar', () => {
         const fakeUsersRepository = new FakeUsersRepository();
         const fakeStorageProvider = new FakeStorageProvider();
 
-        expect(
+        await expect(
             new UpdateUserAvatarService(
                 fakeUsersRepository,
                 fakeStorageProvider,

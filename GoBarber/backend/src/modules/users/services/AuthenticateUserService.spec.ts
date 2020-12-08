@@ -36,7 +36,7 @@ describe('AuthenticateUser', () => {
         const fakeUsersRepository = new FakeUsersRepository();
         const fakeHashProvider = new FakeHashProvider();
 
-        expect(
+        await expect(
             new AuthenticateUserService(
                 fakeUsersRepository,
                 fakeHashProvider,
@@ -60,7 +60,7 @@ describe('AuthenticateUser', () => {
             password: '123456',
         });
 
-        expect(
+        await expect(
             new AuthenticateUserService(
                 fakeUsersRepository,
                 fakeHashProvider,

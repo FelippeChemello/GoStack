@@ -9,6 +9,9 @@ import AppointmentsRepository from '@modules/appointments/infra/typeorm/reposito
 import InterfaceUsersRepository from '@modules/users/repositories/InterfaceUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
+// import InterfaceUserTokensRepository from '@modules/users/repositories/InterfaceUserTokensRepository';
+// import FakeUserTokensRepository from '@modules/users/repositories/fakes/FakeUserTokensRepository';
+
 container.registerSingleton<InterfaceAppointmentsRepository>(
     'AppointmentsRespository',
     AppointmentsRepository,
@@ -18,3 +21,8 @@ container.registerSingleton<InterfaceUsersRepository>(
     'UsersRepository',
     UsersRepository,
 );
+
+// container.registerSingleton<InterfaceUserTokensRepository>(
+//     'UsersRepository',
+//     FakeUserTokensRepository,
+// );
