@@ -1,5 +1,6 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
+
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 
 import AppError from '@shared/errors/AppError';
@@ -107,6 +108,16 @@ describe('UpdateProfile', () => {
                 email: 'johnthree@example.com',
                 oldPassword: 'wrong-old-password',
                 password: '654321',
+            }),
+        ).rejects.toBeInstanceOf(AppError);
+    });
+
+    it('Should not be able to update the profile from non-existing user', async () => {
+        await expect(
+            updateProfileService.execute({
+                userId: 'non-existing-user-id',
+                name: 'Name Of User',
+                email: 'johndoe@example.com',
             }),
         ).rejects.toBeInstanceOf(AppError);
     });

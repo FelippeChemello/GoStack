@@ -45,3 +45,26 @@ content-type: application/json
 }
 
 ###
+
+# @name showProfile
+
+GET {{baseUrl}}/profile HTTP/1.1
+Authorization: Bearer {{authToken}}
+content-type: application/json
+
+###
+
+# @name updateProfile
+
+PUT {{baseUrl}}/profile HTTP/1.1
+Authorization: Bearer {{authToken}}
+content-type: application/json
+
+{
+    "name": "Felippe J Chemello",
+    "email": "felippechemello850@outlook.com",
+    "password": "7777777",
+    "oldPassword": "123456"
+}
+
+###
