@@ -3,6 +3,6 @@ interface InterfaceTemplateVariables {
 }
 
 export default interface InterfaceParseMailTemplateDTO {
-    template: string;
+    file: string;
     variables: InterfaceTemplateVariables;
 }
