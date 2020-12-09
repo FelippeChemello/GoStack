@@ -26,3 +26,4 @@ container.registerSingleton<InterfaceUserTokensRepository>(
     'UserTokensRepository',
     UserTokensRepository,
 );
+
