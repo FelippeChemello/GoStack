@@ -1,0 +1,47 @@
+@baseUrl = http://localhost:3333
+@authToken = {{authenticate.response.body.token}}
+
+# @name createUser
+POST {{baseUrl}}/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Felippe Chemello",
+    "email": "chemellofelippe@gmail.com",
+    "password": "123456"
+}
+
+###
+
+# @name authenticate
+POST {{baseUrl}}/sessions HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "chemellofelippe@gmail.com",
+    "password": "123456"
+}
+
+###
+
+# @name forgotPassword
+POST {{baseUrl}}/password/forgot HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "felippechemello@gmail.com"
+}
+
+###
+
+# @name resetPassword
+
+POST {{baseUrl}}/password/reset HTTP/1.1
+content-type: application/json
+
+{
+    "password": "123123",
+    "token": "0e163924-f2d7-4b59-9d24-d147715cb9eb"
+}
+
+###
