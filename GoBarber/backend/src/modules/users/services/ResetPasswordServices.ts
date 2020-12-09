@@ -1,9 +1,11 @@
 import { inject, injectable } from 'tsyringe';
+import { isAfter, addHours } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
 
 import InterfaceUsersRepository from '@modules/users/repositories/InterfaceUsersRepository';
 import InterfaceUserTokensRepository from '@modules/users/repositories/InterfaceUserTokensRepository';
+import InterfaceHashProvider from '@modules/users/providers/HashProvider/models/InterfaceHashProvider';
 
 interface InterfaceRequestDTO {
     password: string;
@@ -18,6 +20,9 @@ export default class ResetPasswordService {
 
         @inject('UserTokensRepository')
         private userTokensRepository: InterfaceUserTokensRepository,
+
+        @inject('HashProvider')
+        private hashProvider: InterfaceHashProvider,
     ) {}
 
     public async execute({
@@ -29,7 +34,7 @@ export default class ResetPasswordService {
         );
 
         if (!userToken) {
-            throw new AppError('Token is not valid');
+            throw new AppError('Token does not exists');
         }
 
         const user = await this.usersRepository.findById(userToken?.userId);
@@ -38,7 +43,11 @@ export default class ResetPasswordService {
             throw new AppError('User does not exists');
         }
 
-        user.password = password;
+        if (isAfter(Date.now(), addHours(userToken.createdAt, 2))) {
+            throw new AppError('Token is not valid');
+        }
+
+        user.password = await this.hashProvider.generateHash(password);
 
         await this.usersRepository.save(user);
     }
