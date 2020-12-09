@@ -2,6 +2,7 @@ import { uuid } from 'uuidv4';
 
 import InterfaceUsersRepository from '@modules/users/repositories/InterfaceUsersRepository';
 import InterfaceCreateUserDTO from '@modules/users/dtos/InterfaceCreateUserDTO';
+import InterfaceFindAllProvidersDTO from '@modules/users/dtos/InterfaceFindAllProvidersDTO';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 
@@ -42,6 +43,18 @@ class FakeUsersRepository implements InterfaceUsersRepository {
         this.users[findIndex] = user;
 
         return user;
+    }
+
+    public async findAllProvider({
+        exceptUserId,
+    }: InterfaceFindAllProvidersDTO): Promise<User[]> {
+        let users = this.users;
+
+        if (exceptUserId) {
+            users = this.users.filter(user => user.id !== exceptUserId);
+        }
+
+        return users;
     }
 }
 
