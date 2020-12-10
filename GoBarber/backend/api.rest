@@ -32,7 +32,7 @@ POST {{baseUrl}}/sessions HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "felippechemello850@outlook.com",
+    "email": "chemellofelippe@gmail.com",
     "password": "123456"
 }
 
@@ -125,7 +125,7 @@ Authorization: Bearer {{authToken}}
 content-type: application/json
 
 {
-    "providerId": "6cbc1b61-cf57-44d0-b7ba-2fb09ab6fcdf",
+    "providerId": "2d1a8bdf-39a6-4f02-ad3a-ee8e4ff703ae",
     "date": "2020-12-25 11:00:00"
 }
 
