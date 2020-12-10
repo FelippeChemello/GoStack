@@ -3,8 +3,7 @@ import { getDaysInMonth, getDate } from 'date-fns';
 
 import InterfaceAppointmentsRepository from '@modules/appointments/repositories/InterfaceAppointmentsRepository';
 
-import AppError from '@shared/errors/AppError';
-import openingHours from '../config/openingHours';
+import openingHours from '@modules/appointments/config/openingHours';
 
 interface InterfaceRequestDTO {
     providerId: string;

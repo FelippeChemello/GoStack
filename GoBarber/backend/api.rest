@@ -1,7 +1,8 @@
 @baseUrl = http://localhost:3333
-@authToken = {{authenticate.response.body.token}}
-@authEmail = {{authenticate.response.body.user.email}}
+@authToken = {{authenticateUser.response.body.token}}
+@authEmail = {{authenticateUser.response.body.user.email}}
 @providerId = {{listProviders.response.body.0.id}}
+@authTokenProvider = {{authenticateProvider.response.body.token}}
 
 # @name createUser
 POST {{baseUrl}}/users HTTP/1.1
@@ -15,7 +16,7 @@ Content-Type: application/json
 
 ###
 
-# @name authenticate
+# @name authenticateUser
 POST {{baseUrl}}/sessions HTTP/1.1
 Content-Type: application/json
 
@@ -26,12 +27,23 @@ Content-Type: application/json
 
 ###
 
+# @name authenticateProvider
+POST {{baseUrl}}/sessions HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "felippechemello850@outlook.com",
+    "password": "123456"
+}
+
+###
+
 # @name forgotPassword
 POST {{baseUrl}}/password/forgot HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "felippechemello@gmail.com"
+    "email": "felippechemello850@outlook.com"
 }
 
 ###
@@ -43,7 +55,7 @@ content-type: application/json
 
 {
     "password": "123456",
-    "token": "d02677cd-8d97-47da-9cf4-d6b20d54ba70"
+    "token": "7fa99d3f-48d2-49d8-835e-196be21442d3"
 }
 
 ###
@@ -114,9 +126,24 @@ content-type: application/json
 
 {
     "providerId": "6cbc1b61-cf57-44d0-b7ba-2fb09ab6fcdf",
-    "date": "{{$datetime iso8601}}"
+    "date": "2020-12-25 11:00:00"
 }
 
 ###
+
+# @name listProviderAppointments
+
+GET {{baseUrl}}/appointments/me HTTP/1.1
+Authorization: Bearer {{authTokenProvider}}
+content-type: application/json
+
+{
+    "year": "2020",
+    "month": "12",
+    "day": "25"
+}
+
+###
+
 
 
