@@ -1,10 +1,9 @@
 import { injectable, inject } from 'tsyringe';
+import { getDaysInMonth, getDate } from 'date-fns';
 
 import InterfaceAppointmentsRepository from '@modules/appointments/repositories/InterfaceAppointmentsRepository';
 
 import AppError from '@shared/errors/AppError';
-
-import User from '@modules/users/infra/typeorm/entities/User';
 
 interface InterfaceRequestDTO {
     providerId: string;
@@ -29,7 +28,7 @@ class ListProviderMonthAvailabilityService {
         month,
         year,
     }: InterfaceRequestDTO): Promise<InterfaceResponseDTO> {
-        const appointments = this.appointmentsRepository.findAllInMonthFromProvider(
+        const appointments = await this.appointmentsRepository.findAllInMonthFromProvider(
             {
                 providerId,
                 year,
@@ -37,9 +36,25 @@ class ListProviderMonthAvailabilityService {
             },
         );
 
-        console.log(appointments);
+        const numbersOfDaysInMonth = getDaysInMonth(new Date(year, month - 1));
 
-        return [{ day: 1, available: false }];
+        const eachDayArray = Array.from(
+            { length: numbersOfDaysInMonth },
+            (value, index) => index + 1,
+        );
+
+        const availability = eachDayArray.map(day => {
+            const appointmentsInDay = appointments.filter(
+                appointment => getDate(appointment.date) === day,
+            );
+
+            return {
+                day,
+                available: appointmentsInDay.length < 10,
+            };
+        });
+
+        return availability;
     }
 }
 
