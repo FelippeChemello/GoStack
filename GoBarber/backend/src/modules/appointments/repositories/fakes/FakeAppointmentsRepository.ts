@@ -52,12 +52,13 @@ class AppointmentsRepository implements InterfaceAppointmentsRepository {
     }
 
     public async createAndSave({
-        provider,
+        providerId,
         date,
+        userId,
     }: InterfaceCreateAppointmentDTO): Promise<Appointment> {
         const appointment = new Appointment();
 
-        Object.assign(appointment, { id: uuid(), date, providerId: provider });
+        Object.assign(appointment, { id: uuid(), date, providerId, userId });
 
         this.appointments.push(appointment);
 

@@ -1,5 +1,6 @@
 @baseUrl = http://localhost:3333
 @authToken = {{authenticate.response.body.token}}
+@authEmail = {{authenticate.response.body.user.email}}
 
 # @name createUser
 POST {{baseUrl}}/users HTTP/1.1
@@ -76,3 +77,18 @@ Authorization: Bearer {{authToken}}
 content-type: application/json
 
 ###
+
+# @name createAppointment
+
+POST {{baseUrl}}/appointments HTTP/1.1
+Authorization: Bearer {{authToken}}
+content-type: application/json
+
+{
+    "providerId": "6cbc1b61-cf57-44d0-b7ba-2fb09ab6fcdf",
+    "date": "{{$datetime iso8601}}"
+}
+
+###
+
+

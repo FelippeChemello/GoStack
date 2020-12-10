@@ -19,7 +19,8 @@ describe('ListProviderMonthAvailability', () => {
     it("Should be able to list provider's month availability", async () => {
         const appointmentsPromises = openingHours.hoursOpen.map(hour =>
             fakeAppointmentsRepository.createAndSave({
-                provider: 'providerId',
+                providerId: 'providerId',
+                userId: 'userId',
                 date: new Date(2020, 10, 25, hour, 0, 0),
             }),
         );

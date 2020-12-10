@@ -1,4 +1,5 @@
 export default interface InterfaceCreateAppointmentDTO {
-    provider: string;
+    providerId: string;
+    userId: string;
     date: Date;
 }

@@ -8,7 +8,8 @@ import InterfaceAppointmentsRepository from '@modules/appointments/repositories/
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
 interface InterfaceRequestDTO {
-    provider: string;
+    providerId: string;
+    userId: string;
     date: Date;
 }
 
@@ -21,7 +22,8 @@ class CreateAppointmentService {
 
     public async execute({
         date,
-        provider,
+        providerId,
+        userId,
     }: InterfaceRequestDTO): Promise<Appointment> {
         const appointmentDate = startOfHour(date);
 
@@ -34,7 +36,8 @@ class CreateAppointmentService {
         }
 
         const appointment = await this.appointmentsRepository.createAndSave({
-            provider,
+            providerId,
+            userId,
             date: appointmentDate,
         });
 
