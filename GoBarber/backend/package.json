@@ -8,7 +8,8 @@
         "start": "ts-node src/shared/infra/http/server.ts",
         "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-        "dev:db": "docker start gostack_postgres || docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=gostack_gobarber -p 5432:5432 -d postgres"
+        "dev:db": "docker start gostack_postgres || docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=gostack_gobarber -p 5432:5432 -d postgres",
+        "dev:mongo": "docker start gostack_mongodb || docker run --name gostack_mongodb -d -p 27017:27017 -t mongo"
     },
     "dependencies": {
         "@types/node": "^14.6.1",

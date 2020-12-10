@@ -1,4 +1,25 @@
-# Recuperação de senha
+# Bancos de Dados
+
+## PostgreSQL
+
+**Client: Beekeeper-Studio**
+
+host: localhost
+port: 5432
+username: postgres
+password: docker
+database: gostack_gobarber
+
+## MongoDB
+
+**Client: MongoDB Compass Community ou Mongood**
+
+Connection: mongodb://localhost:27017
+
+
+# Funcionalidades
+
+## Recuperação de senha
 
 **Requisitos Funcionais**
 
@@ -17,7 +38,7 @@
 -   O link enviado por email para resetar senha, deve expirar em 2h;
 -   O usuário precisa confirmar a nova senha ao resetar sua senha;
 
-# Atualização do perfil
+## Atualização do perfil
 
 **Requisitos Funcionais**
 
@@ -29,7 +50,7 @@
 -   Para atualizar sua senha, o usuário deve informar a senha antiga;
 -   Para atualizar sua senha, o usuário precisa confirmar a nova senha;
 
-# Painel do prestador
+## Painel do prestador
 
 **Requisitos Funcionais**
 
@@ -47,7 +68,7 @@
 
 -   A notificação deve ter um status de lida ou não-lida para que o prestador possa controlar;
 
-# Agendamento de serviços
+## Agendamento de serviços
 
 **Requisitos Funcionais**
 
