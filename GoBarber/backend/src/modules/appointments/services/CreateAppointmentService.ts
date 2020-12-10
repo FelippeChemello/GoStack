@@ -1,5 +1,7 @@
-import { startOfHour } from 'date-fns';
+import { startOfHour, isBefore, getHours } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
+
+import openingHours from '@modules/appointments/config/openingHours';
 
 import AppError from '@shared/errors/AppError';
 
@@ -26,6 +28,23 @@ class CreateAppointmentService {
         userId,
     }: InterfaceRequestDTO): Promise<Appointment> {
         const appointmentDate = startOfHour(date);
+
+        if (isBefore(appointmentDate, Date.now())) {
+            throw new AppError("You can't book an appointment on a past date");
+        }
+
+        if (userId === providerId) {
+            throw new AppError("You can't book an appointment with yourself");
+        }
+
+        if (
+            getHours(appointmentDate) < openingHours.open ||
+            getHours(appointmentDate) >= openingHours.close
+        ) {
+            throw new AppError(
+                `You can only book an appoinment beetwen ${openingHours.open}h and ${openingHours.close}h `,
+            );
+        }
 
         const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
             appointmentDate,
