@@ -1,6 +1,7 @@
 @baseUrl = http://localhost:3333
 @authToken = {{authenticate.response.body.token}}
 @authEmail = {{authenticate.response.body.user.email}}
+@providerId = {{listProviders.response.body.0.id}}
 
 # @name createUser
 POST {{baseUrl}}/users HTTP/1.1
@@ -75,6 +76,33 @@ content-type: application/json
 GET {{baseUrl}}/providers HTTP/1.1
 Authorization: Bearer {{authToken}}
 content-type: application/json
+
+###
+
+# @name providerMonthAvailability
+
+GET {{baseUrl}}/providers/{{providerId}}/month-availability HTTP/1.1
+Authorization: Bearer {{authToken}}
+content-type: application/json
+
+{
+    "month": "11",
+    "year": "2020"
+}
+
+###
+
+# @name providerDayAvailability
+
+GET {{baseUrl}}/providers/{{providerId}}/day-availability HTTP/1.1
+Authorization: Bearer {{authToken}}
+content-type: application/json
+
+{
+    "day": "15",
+    "month": "12",
+    "year": "2020"
+}
 
 ###
 
