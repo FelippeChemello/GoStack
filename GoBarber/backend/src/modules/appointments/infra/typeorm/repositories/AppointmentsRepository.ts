@@ -3,6 +3,7 @@ import { getRepository, Repository, Raw } from 'typeorm';
 import InterfaceAppointmentsRepository from '@modules/appointments/repositories/InterfaceAppointmentsRepository';
 import InterfaceCreateAppointmentDTO from '@modules/appointments/dtos/InterfaceCreateAppointmentDTO';
 import InterfaceFindAllInMonthFromPoviderDTO from '@modules/appointments/dtos/InterfaceFindAllInMonthFromPoviderDTO';
+import InterfaceFindAllInDayFromPoviderDTO from '@modules/appointments/dtos/InterfaceFindAllInDayFromPoviderDTO';
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
@@ -28,14 +29,38 @@ class AppointmentsRepository implements InterfaceAppointmentsRepository {
         month,
         year,
     }: InterfaceFindAllInMonthFromPoviderDTO): Promise<Appointment[]> {
+        const parsedMonth = String(month).padStart(2, '0');
+        const parsedYear = String(year).padStart(4, '0');
+
         const appointments = await this.ormRepository.find({
             where: {
                 providerId,
                 date: Raw(
                     dateFieldName =>
-                        `to_char(${dateFieldName}, 'MM-YYYY') = '${String(
-                            month,
-                        ).padStart(2, '0')}-${year}'`,
+                        `to_char(${dateFieldName}, 'MM-YYYY') = '${parsedMonth}-${parsedYear}'`,
+                ),
+            },
+        });
+
+        return appointments;
+    }
+
+    public async findAllInDayFromProvider({
+        providerId,
+        day,
+        month,
+        year,
+    }: InterfaceFindAllInDayFromPoviderDTO): Promise<Appointment[]> {
+        const parsedDay = String(day).padStart(2, '0');
+        const parsedMonth = String(month).padStart(2, '0');
+        const parsedYear = String(year).padStart(4, '0');
+
+        const appointments = await this.ormRepository.find({
+            where: {
+                providerId,
+                date: Raw(
+                    dateFieldName =>
+                        `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${parsedYear}'`,
                 ),
             },
         });

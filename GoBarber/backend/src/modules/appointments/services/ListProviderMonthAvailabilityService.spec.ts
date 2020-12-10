@@ -1,8 +1,8 @@
+import openingHours from '@modules/appointments/config/openingHours';
+
 import FakeAppointmentsRepository from '@modules/appointments/repositories/fakes/FakeAppointmentsRepository';
 
 import ListProviderMonthAvailabilityService from '@modules/appointments/services/ListProviderMonthAvailabilityService';
-
-import AppError from '@shared/errors/AppError';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
 let listProviderMonthAvailabilityService: ListProviderMonthAvailabilityService;
@@ -17,13 +17,7 @@ describe('ListProviderMonthAvailability', () => {
     });
 
     it("Should be able to list provider's month availability", async () => {
-        const openingHours = { from: 8, to: 18 };
-        const hoursOpen = Array.from(
-            { length: openingHours.to - openingHours.from },
-            (_, i) => openingHours.from + i,
-        );
-
-        const appointmentsPromises = hoursOpen.map(hour =>
+        const appointmentsPromises = openingHours.hoursOpen.map(hour =>
             fakeAppointmentsRepository.createAndSave({
                 provider: 'providerId',
                 date: new Date(2020, 10, 25, hour, 0, 0),

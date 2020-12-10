@@ -4,6 +4,7 @@ import { getDaysInMonth, getDate } from 'date-fns';
 import InterfaceAppointmentsRepository from '@modules/appointments/repositories/InterfaceAppointmentsRepository';
 
 import AppError from '@shared/errors/AppError';
+import openingHours from '../config/openingHours';
 
 interface InterfaceRequestDTO {
     providerId: string;
@@ -50,7 +51,7 @@ class ListProviderMonthAvailabilityService {
 
             return {
                 day,
-                available: appointmentsInDay.length < 10,
+                available: appointmentsInDay.length < openingHours.workedHours,
             };
         });
 

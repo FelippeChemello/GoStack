@@ -1,5 +1,6 @@
 import InterfaceCreateAppointmentDTO from '@modules/appointments/dtos/InterfaceCreateAppointmentDTO';
 import InterfaceFindAllInMonthFromPoviderDTO from '@modules/appointments/dtos/InterfaceFindAllInMonthFromPoviderDTO';
+import InterfaceFindAllInDayFromPoviderDTO from '@modules/appointments/dtos/InterfaceFindAllInDayFromPoviderDTO';
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
@@ -8,5 +9,8 @@ export default interface InterfaceAppointmentsRepository {
     findByDate(date: Date): Promise<Appointment | undefined>;
     findAllInMonthFromProvider(
         data: InterfaceFindAllInMonthFromPoviderDTO,
+    ): Promise<Appointment[]>;
+    findAllInDayFromProvider(
+        data: InterfaceFindAllInDayFromPoviderDTO,
     ): Promise<Appointment[]>;
 }
