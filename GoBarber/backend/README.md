@@ -16,6 +16,25 @@ database: gostack_gobarber
 
 Connection: mongodb://localhost:27017
 
+# Email
+
+## Como gerar credenciais da Amazon ( AWS_ACCESS_KEY_ID e AWS_SECRET_ACCESS_KEY )
+
+1 - Acessar o IAM da amazon
+2 - Usuários
+3 - Adicionar usuário
+4.1 - Colocar um nome para o usuário
+4.2 - Selecionar "Acesso programático"
+4.3 - Clicar em "Próximo: Permissões"
+5.1 - Clicar em "Anexar políticas existentes de forma direta"
+5.2 - Pesquisar e selecionar "AmazonSESFullAccess"
+5.3 - Clicar em "Próximo: Tags"
+6 - Clicar em "Próximo: Revisar"
+7 - Clicar em "Criar usuário"
+8 - Nesta tela serão exibidos os dados do usuário
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AWS_ACCESS_KEY_ID = ID da chave de acesso
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AWS_SECRET_ACCESS_KEY = Chave de acesso secreta)
+9 - Para utilizar em produção deve <a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html">desabilizar o sandbox</a> (permitir envio para qualquer e-mail)
 
 # Funcionalidades
 

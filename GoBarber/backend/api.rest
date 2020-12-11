@@ -10,7 +10,7 @@ Content-Type: application/json
 
 {
     "name": "Felippe Chemello",
-    "email": "felippechemello@gmail.com",
+    "email": "felippe@codestack.me",
     "password": "123456"
 }
 
@@ -21,8 +21,8 @@ POST {{baseUrl}}/sessions HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "felippechemello@gmail.com",
-    "password": "7777777"
+    "email": "felippe@codestack.me",
+    "password": "123456"
 }
 
 ###
@@ -43,7 +43,7 @@ POST {{baseUrl}}/password/forgot HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "felippechemello850@outlook.com"
+    "email": "felippechemello@gmail.com"
 }
 
 ###
