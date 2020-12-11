@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
     "email": "felippechemello@gmail.com",
-    "password": "123456"
+    "password": "7777777"
 }
 
 ###
@@ -145,6 +145,21 @@ content-type: application/json
     "day": "25"
 }
 
+###
+
+# @name updateAvatar
+
+PATCH  {{baseUrl}}/users/avatar HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="profile.jpg"
+Content-Type: image/jpeg
+
+< ./tmp/profile.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ###
 
 
