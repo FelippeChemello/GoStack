@@ -55,6 +55,7 @@ content-type: application/json
 
 {
     "password": "123456",
+    "passwordConfirmation": "1234564",
     "token": "7fa99d3f-48d2-49d8-835e-196be21442d3"
 }
 
@@ -76,9 +77,10 @@ content-type: application/json
 
 {
     "name": "Felippe J Chemello",
-    "email": "felippechemello850@outlook.com",
+    "email": "felippechemello@gmail.com",
     "password": "7777777",
-    "oldPassword": "123456"
+    "passwordConfirmation": "7777777",
+    "oldPassword": "7777777"
 }
 
 ###
@@ -126,7 +128,7 @@ content-type: application/json
 
 {
     "providerId": "2d1a8bdf-39a6-4f02-ad3a-ee8e4ff703ae",
-    "date": "2020-12-25 13:00:00"
+    "date": "2020-12-25 15:00:00"
 }
 
 ###
