@@ -8,3 +8,4 @@ tmp/*
 !tmp/.gitkeep
 !tmp/**/
 coverage
+.env

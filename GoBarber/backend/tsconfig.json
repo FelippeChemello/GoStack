@@ -8,6 +8,7 @@
         "noImplicitAny": false,
         "strictPropertyInitialization": false,
         "baseUrl": "./src",
+        "allowJs": true,
         "paths": {
             "@modules/*": ["modules/*"],
             "@config/*": ["config/*"],
