@@ -42,8 +42,6 @@ export default class ListProviderAppointmentsService {
                 },
             );
 
-            console.log('Buscando...');
-
             await this.cacheProvider.save(
                 `provider-appointments:${providerId}:${year}:${month}:${day}`,
                 appointments,

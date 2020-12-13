@@ -49,6 +49,9 @@ export default class AuthenticateUserService {
         }
 
         const { secret, expiresIn } = authConfig.jwt;
+        if (!secret) {
+            throw new AppError('Error at creating token');
+        }
 
         const token = sign({}, secret, {
             subject: user.id,
