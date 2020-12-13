@@ -1,8 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
-
 import InterfaceUsersRepository from '@modules/users/repositories/InterfaceUsersRepository';
+import InterfaceCacheProvider from '@shared/container/providers/CacheProvider/models/InterfaceCacheProvider';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 
@@ -15,12 +14,23 @@ class ListProvidersService {
     constructor(
         @inject('UsersRepository')
         private usersRepository: InterfaceUsersRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: InterfaceCacheProvider,
     ) {}
 
     public async execute({ userId }: InterfaceRequestDTO): Promise<User[]> {
-        const users = await this.usersRepository.findAllProvider({
-            exceptUserId: userId,
-        });
+        let users = await this.cacheProvider.recover<User[]>(
+            `providers-list:${userId}`,
+        );
+
+        if (!users) {
+            users = await this.usersRepository.findAllProvider({
+                exceptUserId: userId,
+            });
+
+            await this.cacheProvider.save(`providers-list:${userId}`, users);
+        }
 
         return users;
     }
