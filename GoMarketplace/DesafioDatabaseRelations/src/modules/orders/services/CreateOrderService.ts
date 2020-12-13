@@ -40,30 +40,20 @@ class CreateOrderService {
         );
 
         if (!findProducts) {
-            throw new AppError('Products not found', 400);
+            throw new AppError('Products not found');
         }
 
-        // const productsId = findProducts.map(product => product.id);
+        products.map(product => {
+            const p = findProducts.find(p => p.id === product.id);
 
-        // const inexistentProducts = products.filter(
-        //     product => !productsId.includes(product.id),
-        // );
+            if (!p) {
+                throw new AppError(`Product ${product.id} not found`);
+            }
 
-        // if (inexistentProducts.length) {
-        //     throw new AppError(
-        //         `Could not find product ${JSON.stringify(inexistentProducts)}`,
-        //     );
-        // }
-
-        // const findProductsWithoutStock = products.filter(
-        //     product =>
-        //         findProducts.filter(p => p.id === product.id)[0].quantity <
-        //         product.quantity,
-        // );
-
-        // if (findProductsWithoutStock.length) {
-        //     throw new AppError('Product is out of stock', 400);
-        // }
+            if (p.quantity < product.quantity) {
+                throw new AppError(`Product ${p.name} is out of stock`);
+            }
+        });
 
         const serializedProducts = products.map(product => {
             return {
