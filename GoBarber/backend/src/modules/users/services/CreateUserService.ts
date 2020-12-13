@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 
 import InterfaceUsersRepository from '@modules/users/repositories/InterfaceUsersRepository';
 import InterfaceHashProvider from '@modules/users/providers/HashProvider/models/InterfaceHashProvider';
+import InterfaceCacheProvider from '@shared/container/providers/CacheProvider/models/InterfaceCacheProvider';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 
@@ -21,6 +22,9 @@ export default class CreateUserService {
 
         @inject('HashProvider')
         private hashProvider: InterfaceHashProvider,
+
+        @inject('CacheProvider')
+        private cacheProvider: InterfaceCacheProvider,
     ) {}
 
     public async execute({
@@ -41,6 +45,8 @@ export default class CreateUserService {
             email,
             password: hashedPassword,
         });
+
+        await this.cacheProvider.invalidatePrefix('providers-list');
 
         return user;
     }
