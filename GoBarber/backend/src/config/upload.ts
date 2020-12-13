@@ -5,6 +5,7 @@ import crypto from 'crypto';
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 export default {
+    driver: process.env.STORAGE_DRIVER,
     tmpFolder,
     uploadsFolder: path.resolve(tmpFolder, 'uploads'),
     storage: multer.diskStorage({

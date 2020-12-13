@@ -34,7 +34,30 @@ Connection: mongodb://localhost:27017
 8 - Nesta tela serão exibidos os dados do usuário
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AWS_ACCESS_KEY_ID = ID da chave de acesso
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AWS_SECRET_ACCESS_KEY = Chave de acesso secreta)
-9 - Para utilizar em produção deve <a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html">desabilizar o sandbox</a> (permitir envio para qualquer e-mail)
+
+## Conta de e-mail
+
+-   É necessário habilitar uma conta de e-mail para enviar e-mail (inicialmente somente ela poderá receber e-mails também)
+-   Para utilizar em produção deve <a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html">desabilizar o sandbox</a> (permitir envio para qualquer e-mail)
+
+# Storage
+
+
+## Permissões
+
+1 - Acessar IAM
+2 - Usuários
+3 - Selecionar o mesmo usuário do e-mail
+4 - Adicionar permissões
+5 - "Anexar políticas existentes de forma direta"
+6 - "AmazonS3FullAccess" (não é ideal, é possível definir buckets especificos para acesso)
+7 - Próximo
+8 - Adicionar Permissões
+
+## Bucket
+
+1 - Criar bucket
+2 - Colocar o nome do bucket no .env
 
 # Funcionalidades
 
