@@ -1,0 +1,53 @@
+@baseUrl = http://localhost:3333
+
+# @name createCustomer
+POST {{baseUrl}}/customers HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Felippe J Chemello",
+    "email": "felippeJaqsonchemello@codestack.me"
+}
+
+###
+
+# @name createProduct
+POST {{baseUrl}}/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "SmartPhone",
+    "price": 1999.99,
+    "quantity": 5
+}
+
+###
+
+# @name createOrder
+POST {{baseUrl}}/orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "customer_id": "bab87fc2-3474-4d49-b701-ae5721c4c079",
+    "products": [
+    {
+      "id": "89c4f80b-d839-4850-ae58-9bc9c733ff31",
+      "quantity": 1
+    },
+    {
+      "id": "666576c9-cb70-4754-a853-1a7147137955",
+      "quantity": 2
+    }
+  ]
+}
+
+###
+
+# @name createOrder
+GET {{baseUrl}}/orders/c55a89ba-e6cb-4f8d-a703-f43ff4d92abe HTTP/1.1
+Content-Type: application/json
+
+###
+
+
+
