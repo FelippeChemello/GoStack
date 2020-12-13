@@ -42,5 +42,5 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 }); // Tratativa dos erros globais precisa ocorrer após as rotas, pois nela é que pode gerar algum erro
 
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+    console.log(`🚀 Server started on port ${port}`);
 });

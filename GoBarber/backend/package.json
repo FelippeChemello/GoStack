@@ -9,7 +9,9 @@
         "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
         "dev:db": "docker start gostack_postgres || docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=gostack_gobarber -p 5432:5432 -d postgres",
-        "dev:mongo": "docker start gostack_mongodb || docker run --name gostack_mongodb -d -p 27017:27017 -t mongo"
+        "dev:mongo": "docker start gostack_mongodb || docker run --name gostack_mongodb -d -p 27017:27017 -t mongo",
+        "dev:redis": "docker start gostack_redis || docker run --name gostack_redis -p 6379:6379 -d -t redis:alpine",
+        "dev": "yarn dev:redis && yarn dev:mongo && yarn dev:db && yarn dev:server"
     },
     "dependencies": {
         "@types/node": "^14.6.1",
@@ -23,6 +25,7 @@
         "express": "^4.17.1",
         "express-async-errors": "^3.1.1",
         "handlebars": "^4.7.6",
+        "ioredis": "^4.19.2",
         "jsonwebtoken": "^8.5.1",
         "mime": "^2.4.6",
         "mongodb": "^3.6.3",
@@ -39,6 +42,7 @@
         "@types/bcryptjs": "^2.4.2",
         "@types/cors": "^2.8.9",
         "@types/express": "^4.17.7",
+        "@types/ioredis": "^4.17.8",
         "@types/jest": "^26.0.16",
         "@types/jsonwebtoken": "^8.5.0",
         "@types/mongodb": "^3.6.3",

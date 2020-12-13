@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
 import InterfaceAppointmentsRepository from '@modules/appointments/repositories/InterfaceAppointmentsRepository';
+import InterfaceCacheProvider from '@shared/container/providers/CacheProvider/models/InterfaceCacheProvider';
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
@@ -16,6 +17,9 @@ export default class ListProviderAppointmentsService {
     constructor(
         @inject('AppointmentsRepository')
         private appointmentsRepository: InterfaceAppointmentsRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: InterfaceCacheProvider,
     ) {}
 
     public async execute({
@@ -24,6 +28,8 @@ export default class ListProviderAppointmentsService {
         month,
         year,
     }: InterfaceRequestDTO): Promise<Appointment[]> {
+        // const cacheData = await this.cacheProvider.recover('asd');
+
         const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
             {
                 providerId,
@@ -32,6 +38,8 @@ export default class ListProviderAppointmentsService {
                 day,
             },
         );
+
+        // await this.cacheProvider.save('asd', 'asd');
 
         return appointments;
     }
