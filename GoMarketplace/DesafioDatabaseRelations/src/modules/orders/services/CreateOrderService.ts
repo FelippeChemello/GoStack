@@ -40,7 +40,7 @@ class CreateOrderService {
         );
 
         if (!findProducts) {
-            throw new AppError('Products not found');
+            throw new AppError('Products not found', 400);
         }
 
         // const productsId = findProducts.map(product => product.id);

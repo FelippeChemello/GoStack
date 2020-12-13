@@ -30,8 +30,7 @@ export default class CreateRelationTableOrdersProducts1607882710018
                     },
                     {
                         name: 'quantity',
-                        type: 'numeric',
-                        precision: 7,
+                        type: 'integer',
                     },
                     {
                         name: 'createdAt',
