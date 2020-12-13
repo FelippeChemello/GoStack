@@ -7,6 +7,7 @@ import AppError from '@shared/errors/AppError';
 
 import InterfaceAppointmentsRepository from '@modules/appointments/repositories/InterfaceAppointmentsRepository';
 import InterfaceNotificationsRepository from '@modules/notifications/repositories/InterfaceNotificationsRepository';
+import InterfaceCacheProvider from '@shared/container/providers/CacheProvider/models/InterfaceCacheProvider';
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
@@ -24,6 +25,9 @@ class CreateAppointmentService {
 
         @inject('NotificationsRepository')
         private notificationsRepository: InterfaceNotificationsRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: InterfaceCacheProvider,
     ) {}
 
     public async execute({
@@ -71,6 +75,13 @@ class CreateAppointmentService {
                 "dd/MM/yyyy 'às' HH:mm",
             )}`,
         });
+
+        await this.cacheProvider.invalidate(
+            `provider-appointments:${providerId}:${format(
+                appointmentDate,
+                'yyyy:M:d',
+            )}`,
+        );
 
         return appointment;
     }

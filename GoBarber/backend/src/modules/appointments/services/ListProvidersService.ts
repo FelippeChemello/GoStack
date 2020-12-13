@@ -29,8 +29,6 @@ class ListProvidersService {
                 exceptUserId: userId,
             });
 
-            console.log('Buscando...');
-
             await this.cacheProvider.save(`providers-list:${userId}`, users);
         }
 

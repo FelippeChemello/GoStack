@@ -16,6 +16,8 @@ export default class RedisCacheProvider implements InterfaceCacheProvider {
     }
 
     public async recover<T>(key: string): Promise<T | null> {
+        console.log(key);
+
         const data = await this.client.get(key);
 
         if (!data) {
@@ -27,7 +29,10 @@ export default class RedisCacheProvider implements InterfaceCacheProvider {
         return parsedData;
     }
 
-    public async invalidate(key: string): Promise<void> {}
+    public async invalidate(key: string): Promise<void> {
+        console.log(key);
+        await this.client.del(key);
+    }
 
     public async invalidatePrefix(prefix: string): Promise<void> {
         const keys = await this.client.keys(`${prefix}:*`);
