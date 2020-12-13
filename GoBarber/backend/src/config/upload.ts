@@ -1,8 +1,15 @@
 import path from 'path';
-import multer from 'multer';
+import multer, { StorageEngine } from 'multer';
 import crypto from 'crypto';
 
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
+
+interface InterfaceUploadConfig {
+    driver: 's3' | 'disk';
+    tmpFolder: string;
+    uploadFolder: string;
+    storage: StorageEngine;
+}
 
 export default {
     driver: process.env.STORAGE_DRIVER,
