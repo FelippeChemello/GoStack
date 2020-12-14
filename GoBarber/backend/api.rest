@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3333
-@baseUrl = http://api.codestack.me
+# @baseUrl = http://api.codestack.me
 @authToken = {{authenticateUser.response.body.token}}
 @authEmail = {{authenticateUser.response.body.user.email}}
 @providerId = {{listProviders.response.body.0.id}}

@@ -8,14 +8,22 @@ interface SignInCredentialsInterface {
 }
 
 interface AuthContextInterface {
-    user: object;
+    user: UserData;
     signIn(credentials: SignInCredentialsInterface): Promise<void>;
     signOut(): void;
 }
 
 interface AuthState {
     token: string;
-    user: object;
+    user: UserData;
+}
+
+interface UserData {
+    avatar: string;
+    avatarUrl: string;
+    email: string;
+    id: string;
+    name: string;
 }
 
 // É necessário iniciar um contexto com um valor default, porém não faz sentido ter um valor inicial neste caso,
@@ -56,7 +64,9 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     // Context.Provider -> Prove os dados no valor para todos os componentes filhos que estão dentro dele, com isso os componentes tem acesso a esse valor
     return (
-        <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+        <AuthContext.Provider
+            value={{ user: data.user as UserData, signIn, signOut }}
+        >
             {children}
         </AuthContext.Provider>
     );
