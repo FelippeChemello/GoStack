@@ -36,7 +36,7 @@ const Toast: React.FC<ToastProps> = ({ message, style }) => {
 
     return (
         <Container
-            hasDescription={Boolean(message.description)}
+            hasDescription={Number(Boolean(message.description))}
             type={message.type}
             style={style} // React permite utilização de estilos inline, como seria no estilo de objetos (como no React-Native), podemos jogar o estilo recebido das animações diretamente para essa propriedade
         >

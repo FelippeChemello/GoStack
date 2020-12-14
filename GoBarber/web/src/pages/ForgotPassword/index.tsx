@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -13,6 +13,7 @@ import Button from '../../components/Button';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../context/ToastContext';
+import api from '../../services/api';
 
 interface ForgotPasswordFormData {
     email: string;
@@ -20,6 +21,7 @@ interface ForgotPasswordFormData {
 
 const ForgotPassword: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
+    const [loading, setLoading] = useState(false);
     const { addToast } = useToast();
     const history = useHistory();
 
@@ -28,6 +30,8 @@ const ForgotPassword: React.FC = () => {
             formRef.current?.setErrors({});
 
             try {
+                setLoading(true);
+
                 const schema = Yup.object().shape({
                     email: Yup.string()
                         .required('E-mail obrigatório')
@@ -38,7 +42,18 @@ const ForgotPassword: React.FC = () => {
                     abortEarly: false,
                 });
 
-                history.push('/dashboard');
+                await api.post('/password/forgot', {
+                    email: data.email,
+                });
+
+                addToast({
+                    type: 'success',
+                    title: 'E-mail de recuperação enviado',
+                    description:
+                        'Enviamos um e-mail para confirmar a recuperação de senha. Verifique sua caixa de entrada',
+                });
+
+                history.push('/');
             } catch (err) {
                 if (err instanceof Yup.ValidationError) {
                     const errors = getValidationErrors(err);
@@ -53,6 +68,8 @@ const ForgotPassword: React.FC = () => {
                     description:
                         'Ocorreu um erro ao tentar recuperar a senha, tente novamente.',
                 });
+            } finally {
+                setLoading(false);
             }
         },
         [addToast, history],
@@ -73,7 +90,9 @@ const ForgotPassword: React.FC = () => {
                             icon={FiMail}
                         />
 
-                        <Button type="submit"> Recuperar </Button>
+                        <Button type="submit" loading={loading}>
+                            Recuperar
+                        </Button>
                     </Form>
 
                     <Link to="/">

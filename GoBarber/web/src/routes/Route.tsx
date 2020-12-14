@@ -27,8 +27,6 @@ const Routes: React.FC<RouteProps> = ({
             render={({ location }) => {
                 const isSigned = Boolean(user);
 
-                console.log(isPrivate, isSigned);
-
                 return isPrivate === isSigned ? (
                     <Component />
                 ) : (
