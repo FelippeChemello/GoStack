@@ -95,28 +95,17 @@ content-type: application/json
 
 # @name providerMonthAvailability
 
-GET {{baseUrl}}/providers/{{providerId}}/month-availability HTTP/1.1
+GET {{baseUrl}}/providers/{{providerId}}/month-availability?month=11&year=2020 HTTP/1.1
 Authorization: Bearer {{authToken}}
 content-type: application/json
-
-{
-    "month": "11",
-    "year": "2020"
-}
 
 ###
 
 # @name providerDayAvailability
 
-GET {{baseUrl}}/providers/{{providerId}}/day-availability HTTP/1.1
+GET {{baseUrl}}/providers/{{providerId}}/day-availability?day=15&month=12&year=2020 HTTP/1.1
 Authorization: Bearer {{authToken}}
 content-type: application/json
-
-{
-    "day": "15",
-    "month": "12",
-    "year": "2020"
-}
 
 ###
 
@@ -135,15 +124,9 @@ content-type: application/json
 
 # @name listProviderAppointments
 
-GET {{baseUrl}}/appointments/me HTTP/1.1
+GET {{baseUrl}}/appointments/me?day=01&month=01&year=2021  HTTP/1.1
 Authorization: Bearer {{authTokenProvider}}
 content-type: application/json
-
-{
-    "year": "2021",
-    "month": "1",
-    "day": "1"
-}
 
 ###
 

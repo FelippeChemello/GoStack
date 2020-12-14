@@ -9,14 +9,14 @@ export default class AppointmentsController {
         response: Response,
     ): Promise<Response> {
         const { providerId } = request.params;
-        const { month, year } = request.body;
+        const { month, year } = request.query;
 
         const appointment = await container
             .resolve(ListProviderMonthAvailabilityService)
             .execute({
                 providerId,
-                month,
-                year,
+                month: Number(month),
+                year: Number(year),
             });
 
         return response.json(appointment);
