@@ -11,7 +11,7 @@ Content-Type: application/json
 
 {
     "name": "Felippe Chemello",
-    "email": "teste2@codestack.me",
+    "email": "teste5@codestack.me",
     "password": "123456"
 }
 
