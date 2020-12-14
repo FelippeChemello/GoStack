@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import { getDaysInMonth, getDate } from 'date-fns';
+import { getDaysInMonth, getDate, isAfter } from 'date-fns';
 
 import InterfaceAppointmentsRepository from '@modules/appointments/repositories/InterfaceAppointmentsRepository';
 
@@ -50,7 +50,12 @@ class ListProviderMonthAvailabilityService {
 
             return {
                 day,
-                available: appointmentsInDay.length < openingHours.workedHours,
+                available:
+                    appointmentsInDay.length < openingHours.workedHours &&
+                    isAfter(
+                        new Date(year, month - 1, day, 23, 59, 59),
+                        new Date(),
+                    ),
             };
         });
 
