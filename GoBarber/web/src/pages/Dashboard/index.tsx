@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FiClock, FiPower } from 'react-icons/fi';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -18,10 +18,20 @@ import {
 import logoImg from '../../assets/logo.svg';
 
 import { useAuth } from '../../context/AuthContext';
+import api from '../../services/api';
+
+type MonthAvailabilityItem = {
+    day: number;
+    available: boolean;
+};
 
 const Dashboard: React.FC = () => {
     const { signOut, user } = useAuth();
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [monthAvailability, setMonthAvailability] = useState<
+        MonthAvailabilityItem[]
+    >([]);
 
     const handleDateChange = useCallback(
         (day: Date, modifiers: DayModifiers) => {
@@ -30,6 +40,34 @@ const Dashboard: React.FC = () => {
             }
         },
         [],
+    );
+
+    const handleMonthChange = useCallback((month: Date) => {
+        setCurrentMonth(month);
+    }, []);
+
+    useEffect(() => {
+        api.get(`/providers/${user.id}/month-availability`, {
+            params: {
+                year: currentMonth.getFullYear(),
+                month: currentMonth.getMonth() + 1,
+            },
+        }).then(response => setMonthAvailability(response.data));
+    }, [currentMonth, user.id]);
+
+    const disabledDays = useMemo(
+        () =>
+            monthAvailability
+                .filter(day => !day.available)
+                .map(
+                    day =>
+                        new Date(
+                            currentMonth.getFullYear(),
+                            currentMonth.getMonth(),
+                            day.day,
+                        ),
+                ),
+        [currentMonth, monthAvailability],
     );
 
     return (
@@ -118,6 +156,7 @@ const Dashboard: React.FC = () => {
                         weekdaysShort={['D', 'S', 'T', 'Q', 'Q', 'S', 'S']}
                         fromMonth={new Date()}
                         disabledDays={[
+                            ...disabledDays,
                             {
                                 daysOfWeek: [0, 6],
                             },
@@ -127,6 +166,7 @@ const Dashboard: React.FC = () => {
                         }}
                         onDayClick={handleDateChange}
                         selectedDays={selectedDate}
+                        onMonthChange={handleMonthChange}
                         months={[
                             'Janeiro',
                             'Fevereiro',
