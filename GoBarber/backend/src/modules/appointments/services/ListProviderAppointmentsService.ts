@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import InterfaceAppointmentsRepository from '@modules/appointments/repositories/InterfaceAppointmentsRepository';
 import InterfaceCacheProvider from '@shared/container/providers/CacheProvider/models/InterfaceCacheProvider';
@@ -44,7 +45,7 @@ export default class ListProviderAppointmentsService {
 
             await this.cacheProvider.save(
                 `provider-appointments:${providerId}:${year}:${month}:${day}`,
-                appointments,
+                classToClass(appointments),
             );
         }
 
