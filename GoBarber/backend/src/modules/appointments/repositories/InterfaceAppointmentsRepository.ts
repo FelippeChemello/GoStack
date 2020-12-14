@@ -6,7 +6,10 @@ import Appointment from '@modules/appointments/infra/typeorm/entities/Appointmen
 
 export default interface InterfaceAppointmentsRepository {
     createAndSave(data: InterfaceCreateAppointmentDTO): Promise<Appointment>;
-    findByDate(date: Date): Promise<Appointment | undefined>;
+    findByDate(
+        date: Date,
+        providerId: string,
+    ): Promise<Appointment | undefined>;
     findAllInMonthFromProvider(
         data: InterfaceFindAllInMonthFromPoviderDTO,
     ): Promise<Appointment[]>;
