@@ -162,6 +162,10 @@ export const Section = styled.section`
         padding-bottom: 16px;
         margin-bottom: 16px;
     }
+
+    > p {
+        color: ${shade(0.2, '#999591')};
+    }
 `;
 
 export const Appointment = styled.div`
