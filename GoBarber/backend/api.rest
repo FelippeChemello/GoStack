@@ -79,9 +79,9 @@ content-type: application/json
 {
     "name": "Felippe J Chemello",
     "email": "felippechemello@gmail.com",
-    "password": "7777777",
-    "passwordConfirmation": "7777777",
-    "oldPassword": "7777777"
+    "password": "",
+    "passwordConfirmation": "",
+    "oldPassword": ""
 }
 
 ###

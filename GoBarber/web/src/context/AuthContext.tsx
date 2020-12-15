@@ -11,6 +11,7 @@ interface AuthContextInterface {
     user: UserData;
     signIn(credentials: SignInCredentialsInterface): Promise<void>;
     signOut(): void;
+    updateUser(user: UserData): void;
 }
 
 interface AuthState {
@@ -65,10 +66,20 @@ export const AuthProvider: React.FC = ({ children }) => {
         setData({} as AuthState);
     }, []);
 
+    const updateUser = useCallback(
+        (user: UserData) => {
+            setData({
+                token: data.token,
+                user,
+            });
+        },
+        [setData, data.token],
+    );
+
     // Context.Provider -> Prove os dados no valor para todos os componentes filhos que estão dentro dele, com isso os componentes tem acesso a esse valor
     return (
         <AuthContext.Provider
-            value={{ user: data.user as UserData, signIn, signOut }}
+            value={{ user: data.user as UserData, signIn, signOut, updateUser }}
         >
             {children}
         </AuthContext.Provider>
