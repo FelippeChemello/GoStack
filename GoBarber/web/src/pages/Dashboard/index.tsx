@@ -4,6 +4,7 @@ import { isToday, format, parseISO, isAfter } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import { Link } from 'react-router-dom';
 
 import {
     Container,
@@ -33,7 +34,7 @@ interface Appointment {
     hourAsText: string;
     user: {
         name: string;
-        avartUrl: string;
+        avatarUrl: string;
     };
 }
 
@@ -78,21 +79,12 @@ const Dashboard: React.FC = () => {
         }).then(response => {
             const appointmentsFormatted = response.data.map(appointment => {
                 return {
-                    id: appointment.id,
-                    date: appointment.date,
+                    ...appointment,
                     hourAsText: format(parseISO(appointment.date), 'HH:mm'),
-                    user: {
-                        name: appointment.user.name,
-                        avartUrl:
-                            appointment.user.avartUrl ||
-                            `https://ui-avatars.com/api/?background=random&name=${appointment.user.name.replace(
-                                ' ',
-                                '-',
-                            )}`,
-                    },
                 } as Appointment;
             });
 
+            console.log(appointmentsFormatted);
             setAppointments(appointmentsFormatted);
         });
     }, [selectedDate]);
@@ -153,7 +145,9 @@ const Dashboard: React.FC = () => {
 
                         <div>
                             <span> Bem-vindo, </span>
-                            <strong> {user.name} </strong>
+                            <Link to="/profile">
+                                <strong> {user.name} </strong>
+                            </Link>
                         </div>
                     </Profile>
 
@@ -178,7 +172,7 @@ const Dashboard: React.FC = () => {
 
                             <div>
                                 <img
-                                    src={nextAppointment.user.avartUrl}
+                                    src={nextAppointment.user.avatarUrl}
                                     alt={nextAppointment.user.name}
                                 />
 
@@ -199,6 +193,7 @@ const Dashboard: React.FC = () => {
                         )}
 
                         {morningAppointments.map(appointment => {
+                            console.log(appointment);
                             return (
                                 <Appointment key={appointment.id}>
                                     <span>
@@ -207,7 +202,7 @@ const Dashboard: React.FC = () => {
 
                                     <div>
                                         <img
-                                            src={appointment.user.avartUrl}
+                                            src={appointment.user.avatarUrl}
                                             alt={appointment.user.name}
                                         />
 
@@ -234,7 +229,7 @@ const Dashboard: React.FC = () => {
 
                                     <div>
                                         <img
-                                            src={appointment.user.avartUrl}
+                                            src={appointment.user.avatarUrl}
                                             alt={appointment.user.name}
                                         />
 

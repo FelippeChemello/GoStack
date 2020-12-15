@@ -33,9 +33,14 @@ class User {
     updatedAt: Date;
 
     @Expose({ name: 'avatarUrl' })
-    getAvatarUrl(): string | null {
+    getAvatarUrl(): string {
+        const fallbackUrl = `https://ui-avatars.com/api/?background=random&name=${this.name.replace(
+            ' ',
+            '-',
+        )}`;
+
         if (!this.avatar) {
-            return null;
+            return fallbackUrl;
         }
 
         switch (uploadConfig.driver) {
@@ -44,7 +49,7 @@ class User {
             case 's3':
                 return `https://${process.env.AWS_S3_BUCKET_NAME}.s3.amazonaws.com/${this.avatar}`;
             default:
-                return null;
+                return fallbackUrl;
         }
     }
 }
