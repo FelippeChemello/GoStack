@@ -14,8 +14,16 @@ interface SignInCredentialsInterface {
     password: string;
 }
 
+interface UserData {
+    avatar: string;
+    avatarUrl: string;
+    email: string;
+    id: string;
+    name: string;
+}
+
 interface AuthContextInterface {
-    user: object;
+    user: UserData;
     signIn(credentials: SignInCredentialsInterface): Promise<void>;
     signOut(): void;
     loading: boolean;
@@ -23,7 +31,7 @@ interface AuthContextInterface {
 
 interface AuthState {
     token: string;
-    user: object;
+    user: UserData;
 }
 
 // É necessário iniciar um contexto com um valor default, porém não faz sentido ter um valor inicial neste caso,
