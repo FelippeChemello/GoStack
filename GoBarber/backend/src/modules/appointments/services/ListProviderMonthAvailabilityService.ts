@@ -48,13 +48,20 @@ class ListProviderMonthAvailabilityService {
                 appointment => getDate(appointment.date) === day,
             );
 
+            const compareDate = new Date(Date.now());
+
+            console.log(
+                new Date(year, month - 1, day, 23, 59, 59),
+                compareDate,
+            );
+
             return {
                 day,
                 available:
                     appointmentsInDay.length < openingHours.workedHours &&
                     isAfter(
                         new Date(year, month - 1, day, 23, 59, 59),
-                        new Date(),
+                        compareDate,
                     ),
             };
         });

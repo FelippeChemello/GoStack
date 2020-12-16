@@ -4,8 +4,8 @@ import AppError from '@shared/errors/AppError';
 
 import InterfaceUsersRepository from '@modules/users/repositories/InterfaceUsersRepository';
 import InterfaceStorageProvider from '@shared/container/providers/StorageProvider/models/InterfaceStorageProvider';
+import InterfaceCacheProvider from '@shared/container/providers/CacheProvider/models/InterfaceCacheProvider';
 
-import uploadCOnfig from '@config/upload';
 import User from '@modules/users/infra/typeorm/entities/User';
 
 interface InterfaceRequestDTO {
@@ -21,6 +21,9 @@ class UpdateUserAvatarService {
 
         @inject('StorageProvider')
         private storageProvider: InterfaceStorageProvider,
+
+        @inject('CacheProvider')
+        private cacheProvider: InterfaceCacheProvider,
     ) {}
 
     public async execute({
@@ -45,6 +48,8 @@ class UpdateUserAvatarService {
         user.avatar = filename;
 
         await this.usersRepository.save(user);
+
+        await this.cacheProvider.invalidatePrefix('providers-list');
 
         return user;
     }

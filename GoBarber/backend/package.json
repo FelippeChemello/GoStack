@@ -11,7 +11,8 @@
         "dev:db": "docker start gostack_postgres || docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=gostack_gobarber -p 5432:5432 -d postgres",
         "dev:mongo": "docker start gostack_mongodb || docker run --name gostack_mongodb -d -p 27017:27017 -t mongo",
         "dev:redis": "docker start gostack_redis || docker run --name gostack_redis -p 6379:6379 -d -t redis:alpine",
-        "dev": "yarn dev:redis && yarn dev:mongo && yarn dev:db && yarn dev:server"
+        "dev": "yarn dev:redis && yarn dev:mongo && yarn dev:db && yarn dev:server",
+        "test": "jest"
     },
     "dependencies": {
         "@types/node": "^14.6.1",

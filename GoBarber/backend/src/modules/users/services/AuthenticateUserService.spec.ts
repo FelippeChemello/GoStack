@@ -11,7 +11,6 @@ let authenticateUser: AuthenticateUserService;
 
 describe('AuthenticateUser', () => {
     beforeEach(() => {
-        console.log(process.env);
         fakeUsersRepository = new FakeUsersRepository();
         fakeHashProvider = new FakeHashProvider();
 
