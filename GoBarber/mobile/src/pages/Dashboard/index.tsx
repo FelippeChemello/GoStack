@@ -22,7 +22,6 @@ import {
 
 import { useAuth } from '../../hooks/Auth';
 import api from '../../services/api';
-import { View } from 'react-native';
 
 export interface Provider {
     id: string;
