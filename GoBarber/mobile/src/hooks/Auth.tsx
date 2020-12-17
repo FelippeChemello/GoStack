@@ -53,7 +53,20 @@ export const Auth: React.FC = ({ children }) => {
 
             if (token[1] && user[1]) {
                 setData({ token: token[1], user: JSON.parse(user[1]) });
+
                 api.defaults.headers.authorization = `Bearer ${token[1]}`;
+
+                api.interceptors.response.use(
+                    response => {
+                        return Promise.resolve(response);
+                    },
+                    function (err) {
+                        if (err.status === 401) {
+                            signOut();
+                        }
+                        return Promise.reject(err);
+                    }
+                );
             }
 
             setLoading(false);
@@ -73,6 +86,19 @@ export const Auth: React.FC = ({ children }) => {
         ]);
 
         api.defaults.headers.authorization = `Bearer ${token}`;
+
+        api.interceptors.response.use(
+            response => {
+                return Promise.resolve(response);
+            },
+            function (err) {
+                if (err.status === 401) {
+                    signOut();
+                }
+
+                return Promise.reject(err);
+            }
+        );
 
         setData({ token, user });
     }, []);
