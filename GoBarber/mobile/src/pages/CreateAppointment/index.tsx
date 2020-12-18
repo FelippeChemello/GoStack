@@ -1,7 +1,8 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { format } from 'date-fns';
 
 import {
     Container,
@@ -93,6 +94,52 @@ const CreateAppointment: React.FC = () => {
         []
     );
 
+    const morningAvailability = useMemo(() => {
+        return availability
+            .filter(({ hour }) => {
+                return hour < 12;
+            })
+            .map(({ hour, available }) => {
+                return {
+                    hour,
+                    hourFormatted: format(
+                        new Date(
+                            selectedDate.getFullYear(),
+                            selectedDate.getMonth(),
+                            selectedDate.getDate(),
+                            hour,
+                            0
+                        ),
+                        'HH:mm'
+                    ),
+                    available,
+                };
+            });
+    }, [availability]);
+
+    const afternoonAvailability = useMemo(() => {
+        return availability
+            .filter(({ hour }) => {
+                return hour >= 12;
+            })
+            .map(({ hour, available }) => {
+                return {
+                    hour,
+                    hourFormatted: format(
+                        new Date(
+                            selectedDate.getFullYear(),
+                            selectedDate.getMonth(),
+                            selectedDate.getDate(),
+                            hour,
+                            0
+                        ),
+                        'HH:mm'
+                    ),
+                    available,
+                };
+            });
+    }, [availability]);
+
     return (
         <Container>
             <Header>
@@ -151,6 +198,14 @@ const CreateAppointment: React.FC = () => {
                     />
                 )}
             </Calendar>
+
+            {morningAvailability.map(({ hourFormatted, available }) => {
+                return <Title>{hourFormatted}</Title>;
+            })}
+
+            {afternoonAvailability.map(({ hourFormatted, available }) => {
+                return <Title>{hourFormatted}</Title>;
+            })}
         </Container>
     );
 };
