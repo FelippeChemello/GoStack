@@ -6,6 +6,7 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import Icon from 'react-native-vector-icons/Feather';
+import * as ImagePicker from 'react-native-image-picker';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -22,14 +23,16 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import api from '../../services/api';
 import { useAuth } from '../../hooks/Auth';
 
-interface SignUpFormData {
+interface ProfileFormData {
     name: string;
     email: string;
+    oldPassword: string;
     password: string;
+    passwordConfirmation: string;
 }
 
 const SignUp: React.FC = () => {
-    const { user } = useAuth();
+    const { user, updateUser } = useAuth();
     const navigation = useNavigation();
     const formRef = useRef<FormHandles>(null);
     const emailInputRef = useRef<TextInput>(null);
@@ -38,7 +41,7 @@ const SignUp: React.FC = () => {
     const passwordConfirmationInputRef = useRef<TextInput>(null);
 
     const handleSignUp = useCallback(
-        async (data: SignUpFormData) => {
+        async (data: ProfileFormData) => {
             formRef.current?.setErrors({});
 
             try {
@@ -47,21 +50,35 @@ const SignUp: React.FC = () => {
                     email: Yup.string()
                         .required('E-mail obrigatório')
                         .email('Digite um e-mail válido'),
-                    password: Yup.string().min(6, 'Minimo 6 caracteres'),
+                    oldPassword: Yup.string(),
+                    password: Yup.string().when('oldPassword', {
+                        is: value => Boolean(value.length),
+                        then: Yup.string().required('Campo obrigatório'),
+                        otherwise: Yup.string(),
+                    }),
+                    passwordConfirmation: Yup.string()
+                        .when('oldPassword', {
+                            is: value => Boolean(value.length),
+                            then: Yup.string().required('Campo obrigatório'),
+                            otherwise: Yup.string(),
+                        })
+                        .oneOf(
+                            [Yup.ref('password')],
+                            'Confirmação de senha não coincide'
+                        ),
                 });
 
                 await schema.validate(data, {
                     abortEarly: false,
                 });
 
-                await api.post('users', data);
+                const response = await api.put('profile', data);
 
-                Alert.alert(
-                    'Cadastro realizado com sucesso!',
-                    'Você já pode fazer login na aplicação.'
-                );
+                updateUser(response.data);
 
-                navigation.navigate('SignIn');
+                Alert.alert('Perfil atualizado com sucesso!');
+
+                navigation.goBack();
             } catch (err) {
                 if (err instanceof Yup.ValidationError) {
                     const errors = getValidationErrors(err);
@@ -71,13 +88,38 @@ const SignUp: React.FC = () => {
                 }
 
                 Alert.alert(
-                    'Erro ao cadastrar',
-                    'Ocorreu um erro ao realizar o cadastro, tente novamente.'
+                    'Erro ao atualizar seu perfil',
+                    'Ocorreu um erro ao atualizar seu perfil, tente novamente.'
                 );
             }
         },
-        [navigation]
+        [navigation, updateUser]
     );
+
+    const handleUpdateAvatar = useCallback(() => {
+        ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
+            if (response.didCancel) {
+                return;
+            }
+
+            if (response.errorMessage) {
+                Alert.alert('Erro ao atualizar seu avatar');
+                return;
+            }
+
+            const data = new FormData();
+
+            data.append('avatar', {
+                type: 'image/jpeg',
+                uri: response.uri,
+                name: `${user.id}.jpg`,
+            });
+
+            api.patch('users/avatar', data).then(apiResponse => {
+                updateUser(apiResponse.data);
+            });
+        });
+    }, [updateUser, user.id]);
 
     return (
         <>
@@ -99,7 +141,7 @@ const SignUp: React.FC = () => {
                             />
                         </BackButton>
 
-                        <UserAvatarButton onPress={() => {}}>
+                        <UserAvatarButton onPress={handleUpdateAvatar}>
                             <UserAvatar source={{ uri: user.avatarUrl }} />
                         </UserAvatarButton>
 
@@ -107,7 +149,11 @@ const SignUp: React.FC = () => {
                             <Title>Meu perfil</Title>
                         </View>
 
-                        <Form ref={formRef} onSubmit={handleSignUp}>
+                        <Form
+                            ref={formRef}
+                            onSubmit={handleSignUp}
+                            initialData={{ name: user.name, email: user.email }}
+                        >
                             <Input
                                 autoCorrect={true}
                                 autoCapitalize="words"
