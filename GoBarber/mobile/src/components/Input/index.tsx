@@ -14,6 +14,7 @@ import { Container, TextInput, Icon } from './styles';
 interface InputProps extends TextInputProps {
     name: string;
     icon: string;
+    containerStyle?: object;
 }
 
 interface InputValueReference {
@@ -27,7 +28,7 @@ interface InputRef {
 // React.FC => Function Component (Não passa a ref para dentro do componente por parâmetro)
 // React.ForwardRefRenderFunction => Ref Fowarding Component[deprecated] (Permite a passagem da referência por parâmetro)
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
-    { name, icon, ...rest },
+    { containerStyle = {}, name, icon, ...rest },
     ref
 ) => {
     const { registerField, defaultValue = '', fieldName, error } = useField(
@@ -75,7 +76,11 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     });
 
     return (
-        <Container isFocused={isFocused} isErrored={Boolean(error)}>
+        <Container
+            style={containerStyle}
+            isFocused={isFocused}
+            isErrored={Boolean(error)}
+        >
             <Icon
                 name={icon}
                 size={20}
