@@ -20,7 +20,7 @@ import {
 } from './styles';
 import logoImg from '../../assets/logo.svg';
 
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/AuthContext';
 import api from '../../services/api';
 
 type MonthAvailabilityItem = {

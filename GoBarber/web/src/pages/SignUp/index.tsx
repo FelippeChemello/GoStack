@@ -14,7 +14,7 @@ import api from '../../services/api';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { useToast } from '../../context/ToastContext';
+import { useToast } from '../../hooks/ToastContext';
 
 interface SignUpFormData {
     name: string;

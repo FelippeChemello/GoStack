@@ -12,7 +12,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-import { useToast } from '../../context/ToastContext';
+import { useToast } from '../../hooks/ToastContext';
 import api from '../../services/api';
 
 interface ResetPasswordFormData {

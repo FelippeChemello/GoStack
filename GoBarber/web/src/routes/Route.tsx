@@ -7,7 +7,7 @@ import {
 
 // import { Container } from './styles';
 
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/AuthContext';
 
 interface RouteProps extends ReactRouterDomRouteProps {
     isPrivate?: boolean;

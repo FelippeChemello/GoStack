@@ -9,8 +9,8 @@ import { Container, Content, AvatarInput } from './style';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 import api from '../../services/api';
-import { useToast } from '../../context/ToastContext';
-import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../hooks/ToastContext';
+import { useAuth } from '../../hooks/AuthContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
