@@ -91,9 +91,5 @@ export const AuthProvider: React.FC = ({ children }) => {
 export function useAuth(): AuthContextInterface {
     const context = useContext(AuthContext); // Busca os dados do contexto ao qual está inserido
 
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-
     return context;
 }
