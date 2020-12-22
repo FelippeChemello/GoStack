@@ -88,7 +88,7 @@ const SignIn: React.FC = () => {
                     keyboardShouldPersistTaps="handled"
                 >
                     <Container>
-                        <Image source={logoImg} />
+                        <Image testID="logo-image" source={logoImg} />
 
                         {/* Os Textos não são animados no RN, como utilizamos o KeyboardAvoidingView que causa uma animação para mostrar o teclado, devemos utilizar uma View ao redor de textos para conseguir animar  */}
                         <View>
