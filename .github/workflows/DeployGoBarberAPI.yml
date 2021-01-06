@@ -16,11 +16,14 @@ jobs:
         with:
           node-version: 14.x
       
+      - name: Create working dir
+        run: mv GoBarber/backend /tmp/ && rm -rf * && mv /tmp/backend/* ./
+      
       - name: Install project dependencies
-        run: cd GoBarber/backend && yarn
+        run: yarn
         
       - name: Build application
-        run: cd GoBarber/backend && yarn build
+        run: yarn build
         
       - name: Copy dist/ to production server
         uses: appleboy/scp-action@master
@@ -29,6 +32,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "GoBarber/backend/dist/*"
+          source: "."
           target: "test"
       
