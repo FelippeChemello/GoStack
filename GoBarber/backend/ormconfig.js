@@ -1,3 +1,18 @@
+const databasePaths = {
+    development: {
+        entities: ['./src/modules/**/infra/typeorm/entities/*.ts'],
+        migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
+        migrationsDir: './src/shared/infra/typeorm/migrations',
+        schemas: ['./src/modules/**/infra/typeorm/schemas/*.ts'],
+    },
+    production: {
+        entities: ['./dist/modules/**/infra/typeorm/entities/*.js'],
+        migrations: ['./dist/shared/infra/typeorm/migrations/*.js'],
+        migrationsDir: './dist/shared/infra/typeorm/migrations',
+        schemas: ['./dist/modules/**/infra/typeorm/schemas/*.js'],
+    },
+};
+
 module.exports = [
     {
         name: 'default',
@@ -7,10 +22,10 @@ module.exports = [
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
-        entities: ['./src/modules/**/infra/typeorm/entities/*.ts'],
-        migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
+        entities: databasePaths[process.env.APP_ENV].entities,
+        migrations: databasePaths[process.env.APP_ENV].migrations,
         cli: {
-            migrationsDir: './src/shared/infra/typeorm/migrations',
+            migrationsDir: databasePaths[process.env.APP_ENV].migrationsDir,
         },
     },
     {
@@ -20,6 +35,6 @@ module.exports = [
         port: process.env.MONGO_PORT,
         database: process.env.MONGO_DATABASE,
         useUnifiedTopology: true,
-        entities: ['./src/modules/**/infra/typeorm/schemas/*.ts'],
+        entities: databasePaths[process.env.APP_ENV].schemas,
     },
 ];
