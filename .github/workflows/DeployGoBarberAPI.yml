@@ -34,4 +34,31 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ".,!node_modules"
           target: "~/app/gobarber"
+          
+      - name: Install dependencies on production server
+        uses: appleboy/ssh-action@master
+        with: 
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: cd ~/app/gobarber && yarn
+          
+      - name: Run migrations on production server
+        uses: appleboy/ssh-action@master
+        with: 
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: cd ~/app/gobarber && ./node_modules/.bin/typeorm migration:run
+          
+      - name: Restart application
+        uses: appleboy/ssh-action@master
+        with: 
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: pm2 start dist/shared/infra/http/server.js --name gobarber || pm2 restart gobarber
       
