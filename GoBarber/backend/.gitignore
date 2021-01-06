@@ -9,3 +9,5 @@ tmp/*
 !tmp/**/
 coverage
 .env
+.env.prod
+.env.dev
