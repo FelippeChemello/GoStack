@@ -33,5 +33,5 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "."
-          target: "test"
+          target: "~/app/gobarber"
       
