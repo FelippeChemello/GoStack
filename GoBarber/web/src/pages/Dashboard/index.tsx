@@ -84,7 +84,6 @@ const Dashboard: React.FC = () => {
                 } as Appointment;
             });
 
-            console.log(appointmentsFormatted);
             setAppointments(appointmentsFormatted);
         });
     }, [selectedDate]);
@@ -193,7 +192,6 @@ const Dashboard: React.FC = () => {
                         )}
 
                         {morningAppointments.map(appointment => {
-                            console.log(appointment);
                             return (
                                 <Appointment key={appointment.id}>
                                     <span>

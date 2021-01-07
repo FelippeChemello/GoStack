@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -22,7 +22,7 @@ interface SignInFormData {
 
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
-    const { signIn, user } = useAuth();
+    const { signIn } = useAuth();
     const { addToast } = useToast();
     const history = useHistory();
 

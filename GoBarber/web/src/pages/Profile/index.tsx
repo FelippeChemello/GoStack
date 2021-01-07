@@ -43,7 +43,7 @@ const Profile: React.FC = () => {
                 });
             }
         },
-        [addToast],
+        [addToast, updateUser],
     );
 
     const handleSubmit = useCallback(
