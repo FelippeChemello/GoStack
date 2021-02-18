@@ -1,4 +1,4 @@
-package com.gobarbermobile;
+package com.codestackgobarbermobile;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.gobarbermobile;
+package com.codestackgobarbermobile;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
@@ -14,6 +14,6 @@ public class MainActivity extends ReactActivity {
 
   @Override
   protected String getMainComponentName() {
-    return "gobarbermobile";
+    return "codestackgobarbermobile";
   }
 }
